@@ -26,5 +26,6 @@ namespace SistemaCalidad.Models
         [Display(Name = "Confirmar nueva contraseña")]
         [Compare("Password", ErrorMessage = "La Nueva contraseña y Confirmar nueva contraseña no coinciden.")]
         public string ConfirmPassword { get; set; }
+
     }
 }

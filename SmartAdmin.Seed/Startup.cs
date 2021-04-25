@@ -15,6 +15,9 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using SmartAdminSaludsa.DBcontextPrestadores;
+using EnviarCorreo;
+using SistemaPedidos.Utils;
+using NumberGenerate;
 
 // ReSharper disable UnusedMember.Global
 // ReSharper disable once ClassNeverInstantiated.Global
@@ -49,8 +52,61 @@ namespace SmartAdminSaludsa
                 .AddEntityFrameworkStores<UserDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IEmailSender, AuthMessageSender>();
 
+
+            GenerateNumber.Lower = Convert.ToInt32(Configuration.GetSection("LowerRandom").Value);
+            GenerateNumber.Top = Convert.ToInt32(Configuration.GetSection("TopRandom").Value);
+
+
+            Mensaje.AsuntoCorreo = Configuration.GetSection("AsuntoCorreo").Value;
+
+            MailConfig.HostUri = Configuration.GetSection("Smtp").Value;
+            MailConfig.PrimaryPort = Convert.ToInt32(Configuration.GetSection("PrimaryPort").Value);
+            MailConfig.SecureSocketOptions = Convert.ToInt32(Configuration.GetSection("SecureSocketOptions").Value);
+            MailConfig.RequireAuthentication = Convert.ToBoolean(Configuration.GetSection("RequireAuthentication").Value);
+
+            MailConfig.UserName = Configuration.GetSection("UsuarioCorreo").Value;
+            MailConfig.Password = Configuration.GetSection("PasswordCorreo").Value;
+
+            MailConfig.EmailFrom = Configuration.GetSection("EmailFrom").Value;
+            MailConfig.NameFrom = Configuration.GetSection("NameFrom").Value;
+
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 4;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequiredUniqueChars = 4;
+
+                // Lockout settings
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(TiempoVidaCookie);
+                options.Lockout.MaxFailedAccessAttempts = 10;
+                options.Lockout.AllowedForNewUsers = true;
+
+                // User settings
+                options.User.RequireUniqueEmail = true;
+            });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                // Cookie settings
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(TiempoVidaCookie);
+                // If the LoginPath isn't set, ASP.NET Core defaults 
+                // the path to /Account/Login.
+                options.LoginPath = "/Account/Login";
+                // If the AccessDeniedPath isn't set, ASP.NET Core defaults 
+                // the path to /Account/AccessDenied.
+                options.AccessDeniedPath = "/Account/AccessDenied";
+                options.SlidingExpiration = true;
+
+                options.Cookie.SecurePolicy = Microsoft.AspNetCore.Http.CookieSecurePolicy.SameAsRequest;
+            });
 
 
             services.AddAuthorization(opts => {
@@ -167,7 +223,7 @@ namespace SmartAdminSaludsa
             var usersName = new ApplicationUser[]
             {
                 new ApplicationUser { UserName = "yvalle@saludsa.com.ec", Email = "yvalle@saludsa.com.ec" },
-                //new ApplicationUser { UserName = "yvalle@saludsa.com.ec", Email = "yvalle@saludsa.com.ec" },
+                 new ApplicationUser { UserName = "administrador@saludsa.com.ec", Email = "administrador@saludsa.com.ec" },
                 //new ApplicationUser { UserName = "yvalle@saludsa.com.ec", Email = "yvalle@saludsa.com.ec" },
             };
             IdentityResult result;
@@ -180,14 +236,14 @@ namespace SmartAdminSaludsa
                     switch (item.UserName)
                     {
                         case "yvalle@saludsa.com.ec": result = userManager.CreateAsync(item, "Administrador2018*").Result; break;
-                        //case "gerencia@Saludsa.com.ec": result = userManager.CreateAsync(item, "Gerencia2021*").Result; break;
+                        case "administrador@saludsa.com.ec": result = userManager.CreateAsync(item, "Administrador2018*").Result; break;
                         //case "gestor@saludsa.com.ec": result = userManager.CreateAsync(item, "Gestor2021*").Result; break;
                     }
 
                     switch (item.UserName)
                     {
                         case "yvalle@saludsa.com.ec": result = userManager.AddToRoleAsync(item, Perfiles.Administrador).Result; break;
-                            //case "gerencia@bekaert.com": result = userManager.AddToRoleAsync(item, Perfiles.Gerencia).Result; break;
+                        case "administrador@saludsa.com.ec": result = userManager.AddToRoleAsync(item, Perfiles.Administrador).Result; break;
                             //case "gestor@bekaert.com": result = userManager.AddToRoleAsync(item, Perfiles.Gestor).Result; break;
                     }
                 }

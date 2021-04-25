@@ -11,6 +11,7 @@
 
     <!-- Basic Styles -->
     @{ await Html.RenderPartialAsync("_StylesheetsPartial"); }
+    @RenderSection("CSS", required: false)
 
     <!-- FAVICONS -->
     <link rel="shortcut icon" href="~/img/logo_saludsa.png" type="image/x-icon" />
@@ -32,6 +33,7 @@
     <link rel="apple-touch-startup-image" href="~/img/splash/iphone.png" media="screen and (max-device-width: 320px)" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
 </head>
 <body class="smart-style-1">
     @{ await Html.RenderPartialAsync("_Header"); }

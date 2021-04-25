@@ -8,12 +8,14 @@
 
 
   <ItemGroup>
+    <PackageReference Include="Generate.Number.Net" Version="1.0.0" />
     <PackageReference Include="knockoutjs" Version="3.5.1" />
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.3" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.4" PrivateAssets="All" />
+    <PackageReference Include="SendMailSMTPNet.Core" Version="1.2.9" />
   </ItemGroup>
 
   <ItemGroup>
