@@ -56,7 +56,6 @@ namespace SistemasLegales.Controllers
             try
             {
                 ViewBag.accion = string.IsNullOrEmpty(id) == true ? "Crear" : "Editar";
-                var d = await _rolManager.Roles.ToListAsync();
                 ViewData["IdRol"] = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(await _rolManager.Roles.ToListAsync(), "Name", "Name");
                 if (id != null)
                 {
@@ -79,9 +78,14 @@ namespace SistemasLegales.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Gestionar(RegisterViewModel user)
         {
+            var id = DateTime.Now.Ticks;
             try
             {
+
                 ViewBag.accion = string.IsNullOrEmpty(user.Id) == true ? "Crear" : "Editar";
+
+                Log.Logger.Info($"{User.Identity.Name}-{id} - {ViewBag.accion} - Solicitud - {user.Serializar()}");
+
                 if (ModelState.IsValid)
                 {
                     var existeUsuario = false;
@@ -103,15 +107,22 @@ namespace SistemasLegales.Controllers
                                 Status = user.Status,
                             };
                             var password = "AgendaMedicaSmart" + GenerateNumber.Generate().ToString();
-                            var z = await _userManager.CreateAsync(RegistredUser, password);
+                            await _userManager.CreateAsync(RegistredUser, password);
+
+                            Log.Logger.Info($"{User.Identity.Name}-{id} - Usuario creado - {RegistredUser.Serializar()}");
+
                             var userd = await _userManager.FindByEmailAsync(user.Email);
                             await _userManager.AddToRoleAsync(userd, user.IdRol);
+
+                            Log.Logger.Info($"{User.Identity.Name}-{id} - Adicionar Rol - {userd.Email} - {user.IdRol}");
 
                             var listadoEmails = new List<string>();
                             listadoEmails.Add(user.Email);
                             var cuerpo = _emailSender.CuerpoCreateUser(Configuration.GetSection("CreateUsuarioCorreo").Value, string.Format("{0} {1}", userd.Name, userd.LastName),
                                                                       userd.Email, password, Configuration.GetSection("EmailLink").Value);
                              _emailSender.SendEmailAsync(listadoEmails, Mensaje.AsuntoCorreo, cuerpo);
+
+                            Log.Logger.Info($"{User.Identity.Name}-{id} - Envio Email - {cuerpo.Serializar()}");
 
                             return this.Redireccionar($"{Mensaje.MensajeSatisfactorio}|{Mensaje.Satisfactorio}");
                         }
@@ -135,12 +146,19 @@ namespace SistemasLegales.Controllers
 
                             if (!await _userManager.IsInRoleAsync(CurrentUser, user.IdRol)) 
                             {
+                                Log.Logger.Info($"{User.Identity.Name}-{id} - Actualizar Rol");
+
                                 var RolsUser = _userManager.GetRolesAsync(CurrentUser).Result.FirstOrDefault();
+
                                 await _userManager.RemoveFromRoleAsync(CurrentUser, RolsUser);
+                                Log.Logger.Info($"{User.Identity.Name}-{id} - {user.Email} - RemoveFromRoleAsync - {CurrentUser.Email} - {RolsUser}");
                                 await _userManager.AddToRoleAsync(CurrentUser, user.IdRol);
+
+                                Log.Logger.Info($"{User.Identity.Name}-{id} - {user.Email} - AddToRoleAsync - {CurrentUser.Email} - {user.IdRol}");
                             }
                             await _userManager.UpdateAsync(CurrentUser);
-                              
+                            Log.Logger.Info($"{User.Identity.Name}-{id} - UpdateAsync - {CurrentUser.Serializar()}");
+
                             return this.Redireccionar($"{Mensaje.MensajeSatisfactorio}|{Mensaje.Satisfactorio}");
                         }
                         else
@@ -151,19 +169,22 @@ namespace SistemasLegales.Controllers
 
                     if (existeUsuario)
                     {
+                        Log.Logger.Info($"{User.Identity.Name}-{id} - existeUsuario - {CurrentUser.Email} ");
                         this.TempData["Mensaje"] = $"{Mensaje.Aviso}|{Mensaje.ExisteUsuario}";
                         ViewData["IdRol"] = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(await _rolManager.Roles.ToListAsync(), "Name", "Name", user.IdRol);
                         return View(user);
                     }
-                  
                 }
+
+                Log.Logger.Info($"{User.Identity.Name}-{id} - ModelState.IsValid = False");
                 this.TempData["Mensaje"] = $"{Mensaje.Error}|{Mensaje.CorregirFormulario}";
                 ViewData["IdRol"] = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(await _rolManager.Roles.ToListAsync(), "Name", "Name", user.IdRol);
                 return View(user);
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Log.Logger.Info($"{User.Identity.Name}-{id} - Exception - {ex.Serializar()}");
                 return this.Redireccionar($"{Mensaje.Error}|{Mensaje.Excepcion}");
             }
         }
@@ -174,12 +195,12 @@ namespace SistemasLegales.Controllers
         {
             try
             {
-                Log.Logger.Info($"{User.Identity.Name} - {id} -Solicitud Eliminar Usuario");
+                Log.Logger.Info($"{User.Identity.Name}-{id} -Solicitud Eliminar Usuario");
                 var usuario = await _userManager.FindByIdAsync(id);
                 if (usuario == null)
                 {
 
-                    Log.Logger.Info($"{User.Identity.Name} - {id} - Usuario no encontrado");
+                    Log.Logger.Info($"{User.Identity.Name}-{id} - Usuario no encontrado");
                     return Json(new
                     {
                         Estado = Constantes.EstadoError,
@@ -192,7 +213,7 @@ namespace SistemasLegales.Controllers
                 if (usuarioEliminado.Succeeded)
                 {
 
-                    Log.Logger.Info($"{User.Identity.Name} - {id} - Usuario eliminado");
+                    Log.Logger.Info($"{User.Identity.Name}-{id} - Usuario eliminado - {usuarioEliminado.Serializar()}");
                     this.TempData["Mensaje"] = $"{Mensaje.MensajeSatisfactorio}|  { Mensaje.Satisfactorio}";
                     return Json(new
                     {
@@ -201,7 +222,7 @@ namespace SistemasLegales.Controllers
                     });
                 }
 
-                Log.Logger.Info($"{User.Identity.Name} - {id} - Usuario no fue eliminado");
+                Log.Logger.Info($"{User.Identity.Name}-{id} - Usuario no fue eliminado");
                 return Json(new
                 {
                     Estado = Constantes.EstadoError,
@@ -210,7 +231,7 @@ namespace SistemasLegales.Controllers
             }
             catch (Exception ex)
             {
-                Log.Logger.Info($"{User.Identity.Name} - {id} - Exception - {ex.Serializar()}");
+                Log.Logger.Info($"{User.Identity.Name}-{id} - Exception - {ex.Serializar()}");
                 return Json(new
                 {
                     Estado = Constantes.EstadoError,

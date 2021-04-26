@@ -18,6 +18,7 @@ using SmartAdminSaludsa.DBcontextPrestadores;
 using EnviarCorreo;
 using SistemaPedidos.Utils;
 using NumberGenerate;
+using SistemaPedidos.Utilidades;
 
 // ReSharper disable UnusedMember.Global
 // ReSharper disable once ClassNeverInstantiated.Global
@@ -42,8 +43,13 @@ namespace SmartAdminSaludsa
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            var id = DateTime.Now.Ticks;
+            Log.Logger.Info($"{id} - ConfigureServices");
             var TiempoVidaCookie = Convert.ToDouble(Configuration.GetSection("TiempoVidaCookie").Value);
+
+            Log.Logger.Info($"{id} - TiempoVidaCookie - {TiempoVidaCookie}");
+
+            Log.Logger.Info($"{id} - TiempoVidaCookie - {Configuration.GetConnectionString("DefaultConnection")}");
 
             services.AddDbContext<UserDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -92,6 +98,8 @@ namespace SmartAdminSaludsa
                 options.User.RequireUniqueEmail = true;
             });
 
+            Log.Logger.Info($"{id} - IdentityOptions");
+
             services.ConfigureApplicationCookie(options =>
             {
                 // Cookie settings
@@ -108,6 +116,7 @@ namespace SmartAdminSaludsa
                 options.Cookie.SecurePolicy = Microsoft.AspNetCore.Http.CookieSecurePolicy.SameAsRequest;
             });
 
+            Log.Logger.Info($"{id} - ConfigureApplicationCookie");
 
             services.AddAuthorization(opts => {
 
@@ -137,21 +146,35 @@ namespace SmartAdminSaludsa
                 });
             });
 
+            Log.Logger.Info($"{id} - AddAuthorization");
 
             services.AddMvc();
 
+            Log.Logger.Info($"{id} - AddMvc");
+
             services.AddMemoryCache();
+
+            Log.Logger.Info($"{id} - AddMemoryCache");
 
             services.AddSession();
 
+            Log.Logger.Info($"{id} - AddSession");
+
             services.AddDistributedMemoryCache();
 
+            Log.Logger.Info($"{id} - AddDistributedMemoryCache");
+
             services.AddResponseCaching();
+
+            Log.Logger.Info($"{id} - AddResponseCaching");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
+
+            var id = DateTime.Now.Ticks;
+            Log.Logger.Info($"{id} - Configure");
             var defaultCulture = new CultureInfo("es-EC");
             defaultCulture.NumberFormat.NumberDecimalSeparator = ".";
             defaultCulture.NumberFormat.CurrencyDecimalSeparator = ".";
@@ -165,6 +188,9 @@ namespace SmartAdminSaludsa
                 FallBackToParentUICultures = false,
                 RequestCultureProviders = new List<IRequestCultureProvider> { }
             });
+
+            app.UseStatusCodePages();
+
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
@@ -182,8 +208,8 @@ namespace SmartAdminSaludsa
             app.UseStaticFiles();
             app.UseSession();
 
-            CreateRoles(serviceProvider);
-            CreateUsers(serviceProvider);
+            //CreateRoles(serviceProvider);
+            //CreateUsers(serviceProvider);
 
             app.UseMvc(routes =>
             {

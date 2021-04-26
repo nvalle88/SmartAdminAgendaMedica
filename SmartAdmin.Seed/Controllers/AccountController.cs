@@ -12,8 +12,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using NumberGenerate;
 using SistemaCalidad.Models;
+using SistemaPedidos.Utilidades;
 using SistemaPedidos.Utils;
 using SmartAdmin.Seed.Extensions;
+using SmartAdminSaludsa.Extensores;
 using SmartAdminSaludsa.Models;
 using SmartAdminSaludsa.Services;
 
@@ -62,59 +64,64 @@ namespace SmartAdminSaludsa.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
-            ViewData["ReturnUrl"] = returnUrl;
-            if (ModelState.IsValid)
+            var id = DateTime.Now.Ticks;
+            try
             {
+                Log.Logger.Info($"{id} - {model.Email} - Solicitud - {model.Serializar()}");
 
-
-                var user = await _userManager.Users.Where(c => c.UserName.ToUpper().Trim() == model.Email.ToUpper().Trim()).FirstOrDefaultAsync();
-                if (user == null)
+                if (ModelState.IsValid)
                 {
-                    ModelState.AddModelError(string.Empty, "Intento de inicio de sesión no válido.");
-                    return View(model);
-                }
-
-                var usuario = await _userManager.FindByEmailAsync(model.Email);
-
-                var existe = await _signInManager.CheckPasswordSignInAsync(usuario, model.Password, lockoutOnFailure: false);
-
-                if (existe.Succeeded)
-                {
-                    var IsConfirmed = await _userManager.Users.Where(x => x.EmailConfirmed == false && x.Email == model.Email).FirstOrDefaultAsync();
-                    if (IsConfirmed != null)
+                    var user = await _userManager.Users.Where(c => c.UserName.ToUpper().Trim() == model.Email.ToUpper().Trim()).FirstOrDefaultAsync();
+                    if (user == null)
                     {
-                        return RedirectToAction(nameof(AccountController.ConfirmAccount), "Account", new { email = usuario.Email });
+                        Log.Logger.Info($"{id} - {model.Email} - Intento de inicio de sesión no válido");
+                        ModelState.AddModelError(string.Empty, "Intento de inicio de sesión no válido.");
+                        return View(model);
                     }
 
-                }
+                   
+                    var usuario = await _userManager.FindByEmailAsync(model.Email);
+                   
+                    var existe = await _signInManager.CheckPasswordSignInAsync(usuario, model.Password, lockoutOnFailure: false);
 
+                    if (existe.Succeeded)
+                    {
 
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
-                {
-                    _logger.LogInformation("User logged in.");
-                    this.TempData["Mensaje"] = $"{Mensaje.MensajeSatisfactorio}| Bienvenido {User.Identity.Name}";
-                    return RedirectToLocal(returnUrl);
-                }
-               
-                if (result.IsLockedOut)
-                {
-                    _logger.LogWarning("User account locked out.");
-                    return RedirectToAction(nameof(Lockout));
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                        var IsConfirmed = await _userManager.Users.Where(x => x.EmailConfirmed == false && x.Email == model.Email).FirstOrDefaultAsync();
+                        if (IsConfirmed != null)
+                        {
+                            Log.Logger.Info($"{id} - {model.Email} - IsConfirmed = False - ConfirmAccount");
+                            return RedirectToAction(nameof(AccountController.ConfirmAccount), "Account", new { email = usuario.Email });
+                        }
+
+                    }
+
+                    var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+
+                    if (result.Succeeded)
+                    {
+                        Log.Logger.Info($"{id} - {model.Email} - Succeeded");
+                        this.TempData["Mensaje"] = $"{Mensaje.MensajeSatisfactorio}| Bienvenido {User.Identity.Name}";
+                        return RedirectToAction("Index", "Home");
+                    }
+
+                    Log.Logger.Info($"{id} - {model.Email} - PasswordSignInAsync - Succeeded = false - Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "usuario o contraseña incorrecto");
                     return View(model);
                 }
-            }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
+                Log.Logger.Info($"{id} - {model.Email} - ModelState.IsValid = True");
+                ModelState.AddModelError(string.Empty, "Modelo inválido, contacte con el administrador del sistema");
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Info($"{id} - {model.Email} - Exception {ex.Serializar()}");
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(model);
+            }
         }
 
         public IActionResult ConfirmAccount(string email, string returnUrl = null)
@@ -161,7 +168,7 @@ namespace SmartAdminSaludsa.Controllers
         }
 
 
-      
+
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Lockout()
@@ -177,7 +184,7 @@ namespace SmartAdminSaludsa.Controllers
             return View();
         }
 
-       
+
 
         public async Task<IActionResult> Logout()
         {
