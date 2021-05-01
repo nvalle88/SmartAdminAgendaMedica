@@ -190,7 +190,7 @@ namespace SistemasLegales.Controllers
         }
 
 
-        [HttpDelete]
+        [HttpGet]
         public async Task<JsonResult> EliminarUsuario(string id)
         {
             try
