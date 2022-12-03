@@ -34,7 +34,7 @@ namespace SistemaPedidos.Utilidades
         public static string ObtenerIdTransaccion() => Guid.NewGuid().ToString();
 
 
-        public static void WriteLog(string id, TypeError typeError, object log=null,string Proceso="",string usuario="")
+        public static void WriteLog(TypeError typeError, object log=null, string id = "", string Proceso="",string usuario="")
         {
             try
             {

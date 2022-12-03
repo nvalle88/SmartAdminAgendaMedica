@@ -20,6 +20,7 @@ namespace SmartAdminSaludsa.Controllers
 
         public HomeController(IConfiguration configuration)
         {
+            Log.Logger.Info($"HomeController -  Constructor");
             Configuration = configuration;
         }
 
@@ -29,7 +30,7 @@ namespace SmartAdminSaludsa.Controllers
         [Authorize]
         public IActionResult Index()
         {
-            
+            Log.Logger.Info($"HomeController -  Index");
             return View();
         }
 

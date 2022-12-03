@@ -8,16 +8,28 @@
     <TypeScriptToolsVersion>2.5</TypeScriptToolsVersion>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Models\NegocioViewModels\**" />
+    <Compile Remove="Models\Negocio\**" />
+    <Content Remove="Models\NegocioViewModels\**" />
+    <Content Remove="Models\Negocio\**" />
+    <EmbeddedResource Remove="Models\NegocioViewModels\**" />
+    <EmbeddedResource Remove="Models\Negocio\**" />
+    <None Remove="Models\NegocioViewModels\**" />
+    <None Remove="Models\Negocio\**" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Generate.Number.Net" Version="1.0.0" />
     <PackageReference Include="knockoutjs" Version="3.5.1" />
-    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.3" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.4" PrivateAssets="All" />
     <PackageReference Include="SendMailSMTPNet.Core" Version="1.2.9" />
+    <PackageReference Include="UtilidadesRest" Version="1.7.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,9 +39,66 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\NegocioViewModels\" />
-    <Folder Include="Models\Negocio\" />
     <Folder Include="Models\ViewModels\Prestadores\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\AppViews\Blog.cshtml" />
+    <None Include="Views\AppViews\Gallery.cshtml" />
+    <None Include="Views\AppViews\Profile.cshtml" />
+    <None Include="Views\AppViews\Projects.cshtml" />
+    <None Include="Views\AppViews\TimeLine.cshtml" />
+    <None Include="Views\Commerce\Detail.cshtml" />
+    <None Include="Views\Commerce\Orders.cshtml" />
+    <None Include="Views\Commerce\ProductView.cshtml" />
+    <None Include="Views\Element\Buttons.cshtml" />
+    <None Include="Views\Element\General.cshtml" />
+    <None Include="Views\EmailTemplates\Basic.cshtml" />
+    <None Include="Views\EmailTemplates\Hero.cshtml" />
+    <None Include="Views\EmailTemplates\NewsLetter.cshtml" />
+    <None Include="Views\EmailTemplates\SideBar.cshtml" />
+    <None Include="Views\EmailTemplates\SideBarHero.cshtml" />
+    <None Include="Views\Features\Calendar.cshtml" />
+    <None Include="Views\Features\Googlemap.cshtml" />
+    <None Include="Views\Forms\Bootstrap.cshtml" />
+    <None Include="Views\Forms\Cropping.cshtml" />
+    <None Include="Views\Forms\Dropzone.cshtml" />
+    <None Include="Views\Forms\Editors.cshtml" />
+    <None Include="Views\Forms\Plugins.cshtml" />
+    <None Include="Views\Forms\SmartElements.cshtml" />
+    <None Include="Views\Forms\Templates.cshtml" />
+    <None Include="Views\Forms\Validation.cshtml" />
+    <None Include="Views\Forms\Validator.cshtml" />
+    <None Include="Views\Forms\Wizards.cshtml" />
+    <None Include="Views\Forum\GeneralView.cshtml" />
+    <None Include="Views\Forum\PostView.cshtml" />
+    <None Include="Views\Forum\TopicView.cshtml" />
+    <None Include="Views\Graphs\ChartJS.cshtml" />
+    <None Include="Views\Graphs\Dygraphs.cshtml" />
+    <None Include="Views\Graphs\Flot.cshtml" />
+    <None Include="Views\Graphs\HighCharts.cshtml" />
+    <None Include="Views\Graphs\Inline.cshtml" />
+    <None Include="Views\Graphs\Morris.cshtml" />
+    <None Include="Views\Icons\Flags.cshtml" />
+    <None Include="Views\Icons\FontAwesome.cshtml" />
+    <None Include="Views\Icons\GlyphIcons.cshtml" />
+    <None Include="Views\Icons\Grid.cshtml" />
+    <None Include="Views\Icons\JQueryUI.cshtml" />
+    <None Include="Views\Icons\NestedLists.cshtml" />
+    <None Include="Views\Icons\TreeView.cshtml" />
+    <None Include="Views\Icons\Typography.cshtml" />
+    <None Include="Views\Intel\AppLayout.cshtml" />
+    <None Include="Views\Intel\Settings.cshtml" />
+    <None Include="Views\Intel\Skins.cshtml" />
+    <None Include="Views\Misc\Blank.cshtml" />
+    <None Include="Views\Misc\CKEditor.cshtml" />
+    <None Include="Views\Misc\EmailTemplate.cshtml" />
+    <None Include="Views\Misc\Error404.cshtml" />
+    <None Include="Views\Misc\Error500.cshtml" />
+    <None Include="Views\Misc\Invoice.cshtml" />
+    <None Include="Views\Misc\Pricing.cshtml" />
+    <None Include="Views\Misc\Search.cshtml" />
+    <None Include="Views\Misc\Versions.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

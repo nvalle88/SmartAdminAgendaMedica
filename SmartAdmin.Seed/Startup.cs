@@ -7,18 +7,18 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SmartAdmin.Data;
 using SmartAdminSaludsa.Models;
 using SmartAdminSaludsa.Models.Utiles;
 using SmartAdminSaludsa.Services;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using SmartAdminSaludsa.DBcontextPrestadores;
 using EnviarCorreo;
 using SistemaPedidos.Utils;
 using NumberGenerate;
 using SistemaPedidos.Utilidades;
+using SmartAdmin.Seed.BaseDatos.ContextoBaseDatos;
+using SmartAdminSaludsa.Extensores;
 
 // ReSharper disable UnusedMember.Global
 // ReSharper disable once ClassNeverInstantiated.Global
@@ -45,18 +45,53 @@ namespace SmartAdminSaludsa
         {
             var id = DateTime.Now.Ticks;
             Log.Logger.Info($"{id} - ConfigureServices");
+
             var TiempoVidaCookie = Convert.ToDouble(Configuration.GetSection("TiempoVidaCookie").Value);
 
             Log.Logger.Info($"{id} - TiempoVidaCookie - {TiempoVidaCookie}");
 
-            Log.Logger.Info($"{id} - TiempoVidaCookie - {Configuration.GetConnectionString("DefaultConnection")}");
+
+
+            Log.Logger.Info($"{id} - SQL - {Configuration.GetConnectionString("DefaultConnection")}");
 
             services.AddDbContext<UserDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            Log.Logger.Info($"{id} - AddDbContext - DefaultConnection");
+
+
+
+            Log.Logger.Info($"{id} - SQL - {Configuration.GetConnectionString("ConnectionBddPrestadores")}");
+
+            services.AddDbContext<PrestadoresContext>(options =>
+               options.UseSqlServer(Configuration.GetConnectionString("ConnectionBddPrestadores")));
+
+            Log.Logger.Info($"{id} - AddDbContext - ConnectionBddPrestadores");
+
+
+
+            Log.Logger.Info($"{id} - SQL - {Configuration.GetConnectionString("ConnectionBddSaludsa")}");
+
+            services.AddDbContext<SaludsaContext>(options =>
+               options.UseSqlServer(Configuration.GetConnectionString("ConnectionBddSaludsa")));
+
+            Log.Logger.Info($"{id} - AddDbContext - ConnectionBddSaludsa");
+
+            Log.Logger.Info($"{id} - SQL - {Configuration.GetConnectionString("ConnectionBddMessageBroker")}");
+
+            services.AddDbContext<bdd_MessageBrokerContext>(options =>
+               options.UseSqlServer(Configuration.GetConnectionString("ConnectionBddMessageBroker")));
+
+            Log.Logger.Info($"{id} - AddDbContext - ConnectionBddMessageBroker");
+
+
+            Log.Logger.Info($"{id} - AddIdentity - Init");
+
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<UserDbContext>()
                 .AddDefaultTokenProviders();
+
+            Log.Logger.Info($"{id} - AddIdentity - Final");
 
             services.AddTransient<IEmailSender, AuthMessageSender>();
 
@@ -120,53 +155,63 @@ namespace SmartAdminSaludsa
 
             services.AddAuthorization(opts => {
 
-                opts.AddPolicy("Administrador", policy => {
+                opts.AddPolicy("Administracion", policy => {
                     policy.RequireAuthenticatedUser();
                     policy.RequireRole("Administrador");
                 });
+
+                Log.Logger.Info($"{id} - AddPolicy[Administracion] - RequireRole - [Administrador]");
 
                 opts.AddPolicy("Gerencia", policy => {
                     policy.RequireAuthenticatedUser();
                     policy.RequireRole("Gerencia", "Administrador");
                 });
 
+                Log.Logger.Info($"{id} - AddPolicy[Gerencia] - RequireRole[Gerencia,Administrador]");
+                 
                 opts.AddPolicy("Gestor", policy => {
                     policy.RequireAuthenticatedUser();
                     policy.RequireRole("Gestor", "Gerencia", "Administrador");
                 });
 
+                Log.Logger.Info($"{id} - AddPolicy[Gestor] - RequireRole[Gestor,Gerencia,Administrador]");
+
                 opts.AddPolicy("Medicos", policy => {
                     policy.RequireAuthenticatedUser();
                     policy.RequireRole("Medico", "Administrador");
                 });
+                Log.Logger.Info($"{id} - AddPolicy[Medico] - RequireRole[Medico,Administrador]");
 
                 opts.AddPolicy("Paciente", policy => {
                     policy.RequireAuthenticatedUser();
                     policy.RequireRole("Paciente", "Gestor");
                 });
+
+                Log.Logger.Info($"{id} - AddPolicy[Paciente] - RequireRole[Paciente,Gestor]");
             });
 
-            Log.Logger.Info($"{id} - AddAuthorization");
+
+            Log.Logger.Info($"{id} - services - AddAuthorization");
 
             services.AddMvc();
 
-            Log.Logger.Info($"{id} - AddMvc");
+            Log.Logger.Info($"{id} - services - AddMvc");
 
             services.AddMemoryCache();
 
-            Log.Logger.Info($"{id} - AddMemoryCache");
+            Log.Logger.Info($"{id} - services - AddMemoryCache");
 
             services.AddSession();
 
-            Log.Logger.Info($"{id} - AddSession");
+            Log.Logger.Info($"{id} - services - AddSession");
 
             services.AddDistributedMemoryCache();
 
-            Log.Logger.Info($"{id} - AddDistributedMemoryCache");
+            Log.Logger.Info($"{id} - services - AddDistributedMemoryCache");
 
             services.AddResponseCaching();
 
-            Log.Logger.Info($"{id} - AddResponseCaching");
+            Log.Logger.Info($"{id} - services - AddResponseCaching");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -174,10 +219,24 @@ namespace SmartAdminSaludsa
         {
 
             var id = DateTime.Now.Ticks;
-            Log.Logger.Info($"{id} - Configure");
+            Log.Logger.Info($"{id} - Configure - Init");
+
+
+            Log.Logger.Info($"{id} - Configure - CultureInfo - Init");
             var defaultCulture = new CultureInfo("es-EC");
+
             defaultCulture.NumberFormat.NumberDecimalSeparator = ".";
             defaultCulture.NumberFormat.CurrencyDecimalSeparator = ".";
+
+            var culture = defaultCulture.Serializar();
+            var numberFormat = defaultCulture.NumberFormat.Serializar();
+            var dateTimeFormat = defaultCulture.DateTimeFormat.Serializar();
+
+            Log.Logger.Info($"{id} - culture - {culture}");
+            Log.Logger.Info($"{id} - numberFormat - {numberFormat}");
+            Log.Logger.Info($"{id} - dateTimeFormat - {dateTimeFormat}");
+
+            Log.Logger.Info($"{id} - Configure - CultureInfo - fin");
             //defaultCulture.DateTimeFormat = DateTimeFormatInfo.CurrentInfo;
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
@@ -208,8 +267,8 @@ namespace SmartAdminSaludsa
             app.UseStaticFiles();
             app.UseSession();
 
-            //CreateRoles(serviceProvider);
-            //CreateUsers(serviceProvider);
+            CreateRoles(serviceProvider);
+            CreateUsers(serviceProvider);
 
             app.UseMvc(routes =>
             {
@@ -219,6 +278,8 @@ namespace SmartAdminSaludsa
             });
 
             app.UseResponseCaching();
+
+            Log.Logger.Info($"{id} - Configure - Fin");
         }
 
 

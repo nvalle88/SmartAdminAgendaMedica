@@ -45,6 +45,8 @@ namespace SmartAdminSaludsa.Controllers
             Configuration = configuration;
             _emailSender = emailSender;
             _logger = logger;
+
+            Log.Logger.Info($"AccountController -  Constructor");
         }
 
         [TempData]
@@ -54,10 +56,13 @@ namespace SmartAdminSaludsa.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(string returnUrl = null)
         {
+            var id = DateTime.Now.Ticks;
+           
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
             ViewData["ReturnUrl"] = returnUrl;
+            Log.Logger.Info($"{id} - AccountController -  Login - Init");
             return View();
         }
 
@@ -69,8 +74,6 @@ namespace SmartAdminSaludsa.Controllers
             var id = DateTime.Now.Ticks;
             try
             {
-                Log.Logger.Info($"{id} - {model.Email} - Solicitud - {model.Serializar()}");
-
                 if (ModelState.IsValid)
                 {
                     var user = await _userManager.Users.Where(c => c.UserName.ToUpper().Trim() == model.Email.ToUpper().Trim()).FirstOrDefaultAsync();

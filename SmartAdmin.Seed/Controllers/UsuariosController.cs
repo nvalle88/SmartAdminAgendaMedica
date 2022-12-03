@@ -19,7 +19,7 @@ using SmartAdminSaludsa.Services;
 
 namespace SistemasLegales.Controllers
 {
-    [Authorize(Policy = "Administrador")]
+    [Authorize(Policy = "Administracion")]
     public class UsuariosController : Controller
     {
 

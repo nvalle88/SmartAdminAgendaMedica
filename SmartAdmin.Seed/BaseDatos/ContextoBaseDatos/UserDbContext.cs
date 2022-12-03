@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SmartAdminSaludsa.Models;
 
-namespace SmartAdmin.Data
+namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
 {
     public class UserDbContext : IdentityDbContext<ApplicationUser>
     {
