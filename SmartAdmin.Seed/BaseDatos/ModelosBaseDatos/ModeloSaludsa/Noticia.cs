@@ -1,25 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SmartAdmin.Seed.ModelsSaludsa
+namespace  SmartAdmin.Seed.ModelsSaludsa
 {
     public partial class Noticia
     {
-        public int Id { get; set; }
-        public string Titulo { get; set; }
-        public string Subtitulo { get; set; }
-        public string Etiquetas { get; set; }
+        public Noticia()
+        {
+            GrupoNoticias = new HashSet<GrupoNoticias>();
+        }
+
+        public int IdNoticia { get; set; }
+        public string TituloNoticia { get; set; }
+        public string SubtituloNoticia { get; set; }
+        public string EtiquetaNoticia { get; set; }
         public string UrlImagen { get; set; }
-        public string TipoLayout { get; set; }
-        public bool? EstadoActivo { get; set; }
-        public DateTime? FechaInicio { get; set; }
-        public DateTime? FechaFin { get; set; }
+        public DateTime FechaPublicadoInicio { get; set; }
+        public DateTime FechaPublicadoFin { get; set; }
+        public int IdTipoNoticia { get; set; }
+        public int IdTipoFuncionalidad { get; set; }
+        public int IdCategoria { get; set; }
+        public bool EstadoActivo { get; set; }
+        public string UsuarioRegistrador { get; set; }
         public DateTime FechaCreacion { get; set; }
-        public DateTime? FechaModificacion { get; set; }
-        public string Contenido { get; set; }
-        public string Funcionalidad { get; set; }
-        public string Categoria { get; set; }
-        public string UsuarioCreacion { get; set; }
-        public string UsuarioModificacion { get; set; }
+        public DateTime FechaModificacion { get; set; }
+        public string CuerpoNoticia { get; set; }
+
+        public CatalogoCategorias IdCategoriaNavigation { get; set; }
+        public ICollection<GrupoNoticias> GrupoNoticias { get; set; }
     }
 }

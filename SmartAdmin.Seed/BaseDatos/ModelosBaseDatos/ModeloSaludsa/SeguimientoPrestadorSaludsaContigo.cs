@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SmartAdmin.Seed.ModelsSaludsa
+namespace  SmartAdmin.Seed.ModelsSaludsa
 {
     public partial class SeguimientoPrestadorSaludsaContigo
     {
@@ -38,6 +38,7 @@ namespace SmartAdmin.Seed.ModelsSaludsa
         public string HorarioEntregaBeneficiario { get; set; }
         public string ObservacionBeneficiario { get; set; }
         public bool? EsUltimoRegistro { get; set; }
+        public string UsuarioGestion { get; set; }
 
         public SaludsaContigo SaludsaContigo { get; set; }
     }

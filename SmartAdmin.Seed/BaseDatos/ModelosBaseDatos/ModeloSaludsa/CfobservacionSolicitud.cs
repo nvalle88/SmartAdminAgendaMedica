@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SmartAdmin.Seed.ModelsSaludsa
+namespace  SmartAdmin.Seed.ModelsSaludsa
 {
-    public partial class ObservacionSolicitud
+    public partial class CfobservacionSolicitud
     {
         public int Id { get; set; }
         public int IdConvenio { get; set; }

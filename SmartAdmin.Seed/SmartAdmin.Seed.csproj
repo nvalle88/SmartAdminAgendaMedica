@@ -29,7 +29,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.3" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.4" PrivateAssets="All" />
     <PackageReference Include="SendMailSMTPNet.Core" Version="1.2.9" />
-    <PackageReference Include="UtilidadesRest" Version="1.7.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,6 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="modeloSaldusaDb\" />
     <Folder Include="Models\ViewModels\Prestadores\" />
   </ItemGroup>
 

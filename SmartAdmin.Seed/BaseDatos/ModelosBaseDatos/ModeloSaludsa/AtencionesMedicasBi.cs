@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SmartAdmin.Seed.ModelsSaludsa
+namespace  SmartAdmin.Seed.ModelsSaludsa
 {
     public partial class AtencionesMedicasBi
     {
@@ -38,5 +38,25 @@ namespace SmartAdmin.Seed.ModelsSaludsa
         public DateTime? FechaProceso { get; set; }
         public bool Estado { get; set; }
         public string CanalAcceso { get; set; }
+        public string TipoAtencion { get; set; }
+        public string PrestadorFarmacia { get; set; }
+        public string PoseeReceta { get; set; }
+        public string LaboratorioDomicilio { get; set; }
+        public string PrestadorLaboratorio { get; set; }
+        public string PoseeLaboratorio { get; set; }
+        public string PoseeImagen { get; set; }
+        public DateTime? FechaContestacion { get; set; }
+        public string DiferenciaMinutos { get; set; }
+        public string CambioCanalDesde { get; set; }
+        public string CambioCanalHasta { get; set; }
+        public DateTime? CambioCanalFecha { get; set; }
+        public string CambioCanalJustificacion { get; set; }
+        public DateTime? FechaCreacionMensaje { get; set; }
+        public DateTime? FechaMensajeMedico { get; set; }
+        public string TiempoDemoraMensajeMedico { get; set; }
+        public DateTime? FechaMensajePaciente { get; set; }
+        public string TiempoDemoraMensajePaciente { get; set; }
+        public DateTime? FechaSegundoMensajeMedico { get; set; }
+        public string TiempoDemoraSegundoMensajeMedico { get; set; }
     }
 }

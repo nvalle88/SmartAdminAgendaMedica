@@ -1,12 +1,12 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
+
 using SmartAdmin.Seed.ModelsSaludsa;
 
 namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
 {
     public partial class SaludsaContext : DbContext
     {
-        #region Entidades
         public virtual DbSet<AdmCatalogo> AdmCatalogo { get; set; }
         public virtual DbSet<AdmItemCatalogo> AdmItemCatalogo { get; set; }
         public virtual DbSet<AgrupadorCobertura> AgrupadorCobertura { get; set; }
@@ -26,16 +26,39 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
         public virtual DbSet<Caso> Caso { get; set; }
         public virtual DbSet<CasoSignoSintoma> CasoSignoSintoma { get; set; }
         public virtual DbSet<Catalogo> Catalogo { get; set; }
-        public virtual DbSet<CatalogoDiagnostico> CatalogoDiagnostico { get; set; }
+        public virtual DbSet<CatalogoCategorias> CatalogoCategorias { get; set; }
         public virtual DbSet<CatalogoGeneral> CatalogoGeneral { get; set; }
-        public virtual DbSet<CatalogoMedicamento> CatalogoMedicamento { get; set; }
+        public virtual DbSet<CatalogoTipoFuncionalidad> CatalogoTipoFuncionalidad { get; set; }
+        public virtual DbSet<CatalogoTipoNoticia> CatalogoTipoNoticia { get; set; }
         public virtual DbSet<CategoriasReembolso> CategoriasReembolso { get; set; }
         public virtual DbSet<Certificado> Certificado { get; set; }
+        public virtual DbSet<Cfconciliacion> Cfconciliacion { get; set; }
+        public virtual DbSet<CfconciliacionCredito> CfconciliacionCredito { get; set; }
+        public virtual DbSet<CfconciliacionDetalle> CfconciliacionDetalle { get; set; }
+        public virtual DbSet<CfconciliacionLogs> CfconciliacionLogs { get; set; }
+        public virtual DbSet<CfconfReglaControlDespacho> CfconfReglaControlDespacho { get; set; }
+        public virtual DbSet<CfcorreosNotificar> CfcorreosNotificar { get; set; }
+        public virtual DbSet<Cfdiagnostico> Cfdiagnostico { get; set; }
+        public virtual DbSet<CfdiagnosticoRechazo> CfdiagnosticoRechazo { get; set; }
+        public virtual DbSet<CferrorConciliacion> CferrorConciliacion { get; set; }
+        public virtual DbSet<CferrorConciliacionMi02CausasNoMigrar> CferrorConciliacionMi02CausasNoMigrar { get; set; }
+        public virtual DbSet<Cfingreso> Cfingreso { get; set; }
+        public virtual DbSet<Cfmedicamento> Cfmedicamento { get; set; }
+        public virtual DbSet<CfmedicamentoRechazo> CfmedicamentoRechazo { get; set; }
+        public virtual DbSet<Cfmedicina> Cfmedicina { get; set; }
+        public virtual DbSet<CfmedicinaPrestadorProducto> CfmedicinaPrestadorProducto { get; set; }
+        public virtual DbSet<CfobservacionSolicitud> CfobservacionSolicitud { get; set; }
+        public virtual DbSet<Cfprestador> Cfprestador { get; set; }
+        public virtual DbSet<Cfproducto> Cfproducto { get; set; }
+        public virtual DbSet<Cfregla> Cfregla { get; set; }
+        public virtual DbSet<Cfsolicitud> Cfsolicitud { get; set; }
+        public virtual DbSet<CfsolicitudRechazo> CfsolicitudRechazo { get; set; }
         public virtual DbSet<CitasMedicasNotificaciones> CitasMedicasNotificaciones { get; set; }
         public virtual DbSet<Ciudad> Ciudad { get; set; }
         public virtual DbSet<Ciudad1> Ciudad1 { get; set; }
         public virtual DbSet<CiudadPrestadorProcedimiento> CiudadPrestadorProcedimiento { get; set; }
         public virtual DbSet<Cl03PersonasAdicional> Cl03PersonasAdicional { get; set; }
+        public virtual DbSet<ClasificacionClientes> ClasificacionClientes { get; set; }
         public virtual DbSet<Cobertura> Cobertura { get; set; }
         public virtual DbSet<CoberturaBeneficio> CoberturaBeneficio { get; set; }
         public virtual DbSet<CoberturaDental> CoberturaDental { get; set; }
@@ -54,18 +77,22 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
         public virtual DbSet<ComoUsarPlanGuiaUso> ComoUsarPlanGuiaUso { get; set; }
         public virtual DbSet<ComoUsarPlanProducto> ComoUsarPlanProducto { get; set; }
         public virtual DbSet<ConfCategoriaShift> ConfCategoriaShift { get; set; }
+        public virtual DbSet<ConfCentrosMedicos> ConfCentrosMedicos { get; set; }
+        public virtual DbSet<ConfCentrosMedicosNotificacion> ConfCentrosMedicosNotificacion { get; set; }
         public virtual DbSet<Configuracion> Configuracion { get; set; }
         public virtual DbSet<ConfiguracionCargaEstadoCuenta> ConfiguracionCargaEstadoCuenta { get; set; }
         public virtual DbSet<ConfiguracionEnvioNotificaciones> ConfiguracionEnvioNotificaciones { get; set; }
         public virtual DbSet<ConfiguracionPantalla> ConfiguracionPantalla { get; set; }
         public virtual DbSet<ConfiguracionPantallaGenerica> ConfiguracionPantallaGenerica { get; set; }
         public virtual DbSet<ConfiguracionPrestadorSrvCita> ConfiguracionPrestadorSrvCita { get; set; }
+        public virtual DbSet<ConfParametrosConsultas> ConfParametrosConsultas { get; set; }
+        public virtual DbSet<ContabilizacionCitasMedicas> ContabilizacionCitasMedicas { get; set; }
         public virtual DbSet<ContactoGesPacientes> ContactoGesPacientes { get; set; }
         public virtual DbSet<ContenidoVisor> ContenidoVisor { get; set; }
         public virtual DbSet<ContratoGesPacientes> ContratoGesPacientes { get; set; }
         public virtual DbSet<ControlCita> ControlCita { get; set; }
         public virtual DbSet<ControlCitas> ControlCitas { get; set; }
-        public virtual DbSet<Convenio> Convenio { get; set; }
+        public virtual DbSet<CoordinaLlamada> CoordinaLlamada { get; set; }
         public virtual DbSet<CorreosPrestador> CorreosPrestador { get; set; }
         public virtual DbSet<CredencialesVisor> CredencialesVisor { get; set; }
         public virtual DbSet<CreditoMedNpproducto> CreditoMedNpproducto { get; set; }
@@ -81,7 +108,6 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
         public virtual DbSet<DeducibleSeccion> DeducibleSeccion { get; set; }
         public virtual DbSet<DetalleConfiguracionEnvioNotificaciones> DetalleConfiguracionEnvioNotificaciones { get; set; }
         public virtual DbSet<DetallesCoberturaDent> DetallesCoberturaDent { get; set; }
-        public virtual DbSet<Diagnostico> Diagnostico { get; set; }
         public virtual DbSet<Diagnosticos> Diagnosticos { get; set; }
         public virtual DbSet<EmpresaTercerizada> EmpresaTercerizada { get; set; }
         public virtual DbSet<Encuesta> Encuesta { get; set; }
@@ -101,6 +127,12 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
         public virtual DbSet<Funcionalidad> Funcionalidad { get; set; }
         public virtual DbSet<FuncionarioPrestador> FuncionarioPrestador { get; set; }
         public virtual DbSet<Gap> Gap { get; set; }
+        public virtual DbSet<Grupo> Grupo { get; set; }
+        public virtual DbSet<Grupo1> Grupo1 { get; set; }
+        public virtual DbSet<Grupo2> Grupo2 { get; set; }
+        public virtual DbSet<GrupoNoticias> GrupoNoticias { get; set; }
+        public virtual DbSet<GrupoProductoPlan> GrupoProductoPlan { get; set; }
+        public virtual DbSet<GrupoProductoPlan1> GrupoProductoPlan1 { get; set; }
         public virtual DbSet<Historial> Historial { get; set; }
         public virtual DbSet<HomologacionEstados> HomologacionEstados { get; set; }
         public virtual DbSet<ImagenOrdenAtencion> ImagenOrdenAtencion { get; set; }
@@ -114,7 +146,6 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
         public virtual DbSet<LotePagoFacturas> LotePagoFacturas { get; set; }
         public virtual DbSet<MasivoMovimiento> MasivoMovimiento { get; set; }
         public virtual DbSet<MasivoServicioAdicional> MasivoServicioAdicional { get; set; }
-        public virtual DbSet<Medicamento> Medicamento { get; set; }
         public virtual DbSet<MensajeError> MensajeError { get; set; }
         public virtual DbSet<MigrationHistory> MigrationHistory { get; set; }
         public virtual DbSet<Modulo> Modulo { get; set; }
@@ -122,12 +153,14 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
         public virtual DbSet<Movimiento> Movimiento { get; set; }
         public virtual DbSet<Niveles> Niveles { get; set; }
         public virtual DbSet<Noticia> Noticia { get; set; }
+        public virtual DbSet<Noticia1> Noticia1 { get; set; }
+        public virtual DbSet<Noticia2> Noticia2 { get; set; }
+        public virtual DbSet<Notificacion> Notificacion { get; set; }
         public virtual DbSet<NotificacionTerminosCondiciones> NotificacionTerminosCondiciones { get; set; }
         public virtual DbSet<ObservacionCanales> ObservacionCanales { get; set; }
         public virtual DbSet<ObservacionNiveles> ObservacionNiveles { get; set; }
         public virtual DbSet<ObservacionRangos> ObservacionRangos { get; set; }
         public virtual DbSet<ObservacionSalas> ObservacionSalas { get; set; }
-        public virtual DbSet<ObservacionSolicitud> ObservacionSolicitud { get; set; }
         public virtual DbSet<ObservacionSubtipo> ObservacionSubtipo { get; set; }
         public virtual DbSet<ObservacionTipo> ObservacionTipo { get; set; }
         public virtual DbSet<OnBoarding> OnBoarding { get; set; }
@@ -140,23 +173,27 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
         public virtual DbSet<Parametro1> Parametro1 { get; set; }
         public virtual DbSet<ParametroServicioWeb> ParametroServicioWeb { get; set; }
         public virtual DbSet<ParametroServicioWebs> ParametroServicioWebs { get; set; }
-        public virtual DbSet<ParametroServicioWebs1> ParametroServicioWebs1 { get; set; }
         public virtual DbSet<Periodo> Periodo { get; set; }
         public virtual DbSet<PermisosVisor> PermisosVisor { get; set; }
         public virtual DbSet<Persona> Persona { get; set; }
         public virtual DbSet<PersonaActualizada> PersonaActualizada { get; set; }
         public virtual DbSet<PersonaAdicional> PersonaAdicional { get; set; }
         public virtual DbSet<PlanAgrupador> PlanAgrupador { get; set; }
+        public virtual DbSet<Planes> Planes { get; set; }
+        public virtual DbSet<Planes1> Planes1 { get; set; }
         public virtual DbSet<Poliza> Poliza { get; set; }
         public virtual DbSet<Preexistencia> Preexistencia { get; set; }
         public virtual DbSet<PreexistenciaDetalle> PreexistenciaDetalle { get; set; }
         public virtual DbSet<Prestador> Prestador { get; set; }
         public virtual DbSet<Prestador1> Prestador1 { get; set; }
+        public virtual DbSet<PrestadoresHomologadosZendesk> PrestadoresHomologadosZendesk { get; set; }
         public virtual DbSet<PrestadorGesPacientes> PrestadorGesPacientes { get; set; }
         public virtual DbSet<PrestadorUsuario> PrestadorUsuario { get; set; }
         public virtual DbSet<PresupuestoDirector> PresupuestoDirector { get; set; }
         public virtual DbSet<PresupuestoVendedor> PresupuestoVendedor { get; set; }
         public virtual DbSet<Procedimiento> Procedimiento { get; set; }
+        public virtual DbSet<Productos> Productos { get; set; }
+        public virtual DbSet<Productos1> Productos1 { get; set; }
         public virtual DbSet<Proveedor> Proveedor { get; set; }
         public virtual DbSet<Provincia> Provincia { get; set; }
         public virtual DbSet<Queja> Queja { get; set; }
@@ -179,7 +216,7 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
         public virtual DbSet<ServicioAdicionalIcono> ServicioAdicionalIcono { get; set; }
         public virtual DbSet<ServicioAdicionalSeccion> ServicioAdicionalSeccion { get; set; }
         public virtual DbSet<ServicioBeneficiario> ServicioBeneficiario { get; set; }
-        public virtual DbSet<Solicitud> Solicitud { get; set; }
+        public virtual DbSet<ServiciosHabilitadosApps> ServiciosHabilitadosApps { get; set; }
         public virtual DbSet<SolicitudCitaMedicoDestacado> SolicitudCitaMedicoDestacado { get; set; }
         public virtual DbSet<Sponsor> Sponsor { get; set; }
         public virtual DbSet<SubespecialidadMedica> SubespecialidadMedica { get; set; }
@@ -195,23 +232,25 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
         public virtual DbSet<TipoPrestador> TipoPrestador { get; set; }
         public virtual DbSet<TipoPrestadorCiudadPrestador> TipoPrestadorCiudadPrestador { get; set; }
         public virtual DbSet<TipoRequerimiento> TipoRequerimiento { get; set; }
+        public virtual DbSet<TokenOda> TokenOda { get; set; }
         public virtual DbSet<TotalCitaDisponible> TotalCitaDisponible { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<UsuarioRol> UsuarioRol { get; set; }
+        public virtual DbSet<ValoresFee> ValoresFee { get; set; }
         public virtual DbSet<Versionamiento> Versionamiento { get; set; }
-        public virtual DbSet<VersionamientoOnBoarding> VersionamientoOnBoarding { get; set; } 
-        #endregion
+        public virtual DbSet<VersionamientoOnBoarding> VersionamientoOnBoarding { get; set; }
 
         // Unable to generate entity type for table 'SaludsaContigo.SaludsaContigoRepositorio'. Please see the warning messages.
         // Unable to generate entity type for table 'FormularioHospitalario.ProcedimientoDiagnostico'. Please see the warning messages.
         // Unable to generate entity type for table 'dbo.Sector'. Please see the warning messages.
+        // Unable to generate entity type for table 'dbo.PruebaTrg'. Please see the warning messages.
         // Unable to generate entity type for table 'ProcedimientoGuiaMedica.ProcedimientoTemporal'. Please see the warning messages.
-        // Unable to generate entity type for table 'CreditoFarmacia.CatalogoMedicamentoDiagnosticoConvenio'. Please see the warning messages.
-        // Unable to generate entity type for table 'CreditoFarmacia.CatalogoDiagnosticoConvenioExcluido'. Please see the warning messages.
         // Unable to generate entity type for table 'dbo.auxplanv'. Please see the warning messages.
         // Unable to generate entity type for table 'dbo.respPara'. Please see the warning messages.
+        // Unable to generate entity type for table 'dbo.CFConciliacionReproceso'. Please see the warning messages.
         // Unable to generate entity type for table 'dbo.auxplan'. Please see the warning messages.
-        // Unable to generate entity type for table 'CreditoFarmacia.Regla'. Please see the warning messages.
+        // Unable to generate entity type for table 'GestionContenido.GrupoNoticia'. Please see the warning messages.
+        // Unable to generate entity type for table 'CreditoFarmacia.CFPosiblePreexistenciaHallazgo'. Please see the warning messages.
         // Unable to generate entity type for table 'dbo.PruebasPrestadores'. Please see the warning messages.
         // Unable to generate entity type for table 'dbo.DataLoadTable'. Please see the warning messages.
         // Unable to generate entity type for table 'Catalogo.ServicioCiudad'. Please see the warning messages.
@@ -356,6 +395,20 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
                     .HasMaxLength(5)
                     .IsUnicode(false);
 
+                entity.Property(e => e.CambioCanalDesde)
+                    .HasMaxLength(300)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CambioCanalFecha).HasColumnType("datetime");
+
+                entity.Property(e => e.CambioCanalHasta)
+                    .HasMaxLength(300)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CambioCanalJustificacion)
+                    .HasMaxLength(300)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.Canal)
                     .HasMaxLength(30)
                     .IsUnicode(false);
@@ -377,7 +430,7 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
                     .IsUnicode(false);
 
                 entity.Property(e => e.Codigo)
-                    .HasMaxLength(10)
+                    .HasMaxLength(20)
                     .IsUnicode(false);
 
                 entity.Property(e => e.CodigoPlan)
@@ -395,6 +448,10 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
                 entity.Property(e => e.DetalleCie10)
                     .HasColumnName("Detalle_Cie10")
                     .HasMaxLength(1000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DiferenciaMinutos)
+                    .HasMaxLength(10)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Edad)
@@ -419,7 +476,21 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
 
                 entity.Property(e => e.Fecha).HasColumnType("datetime");
 
+                entity.Property(e => e.FechaContestacion).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaCreacionMensaje).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaMensajeMedico).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaMensajePaciente).HasColumnType("datetime");
+
                 entity.Property(e => e.FechaProceso).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaSegundoMensajeMedico).HasColumnType("datetime");
+
+                entity.Property(e => e.LaboratorioDomicilio)
+                    .HasMaxLength(300)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Nombre)
                     .HasMaxLength(150)
@@ -438,12 +509,48 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Region)
+                entity.Property(e => e.PoseeImagen)
                     .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PoseeLaboratorio)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PoseeReceta)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PrestadorFarmacia)
+                    .HasMaxLength(300)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PrestadorLaboratorio)
+                    .HasMaxLength(300)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Region)
+                    .HasMaxLength(20)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Telefono)
                     .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TiempoDemoraMensajeMedico)
+                    .HasMaxLength(30)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TiempoDemoraMensajePaciente)
+                    .HasMaxLength(30)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TiempoDemoraSegundoMensajeMedico)
+                    .HasMaxLength(30)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TipoAtencion)
+                    .HasMaxLength(30)
                     .IsUnicode(false);
 
                 entity.Property(e => e.TipoAtencionEfectuadaCovid)
@@ -629,6 +736,15 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
             {
                 entity.ToTable("Banco", "GenericoEstructura");
 
+                entity.Property(e => e.Bin)
+                    .HasMaxLength(32)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("('0')");
+
+                entity.Property(e => e.CantidadMaximaDigitos).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.CantidadMinimaDigitos).HasDefaultValueSql("((0))");
+
                 entity.Property(e => e.Codigo)
                     .IsRequired()
                     .HasMaxLength(10)
@@ -636,7 +752,12 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
 
                 entity.Property(e => e.Nombre)
                     .IsRequired()
-                    .HasMaxLength(50)
+                    .HasMaxLength(80)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TipoEntidad)
+                    .IsRequired()
+                    .HasMaxLength(10)
                     .IsUnicode(false);
             });
 
@@ -914,17 +1035,20 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
                     .HasConstraintName("FK_Catalogo_Catalogo");
             });
 
-            modelBuilder.Entity<CatalogoDiagnostico>(entity =>
+            modelBuilder.Entity<CatalogoCategorias>(entity =>
             {
-                entity.ToTable("CatalogoDiagnostico", "CreditoFarmacia");
+                entity.HasKey(e => e.IdCategoria);
 
-                entity.Property(e => e.Codigo)
-                    .HasMaxLength(50)
+                entity.ToTable("CatalogoCategorias", "Noticias");
+
+                entity.Property(e => e.DescripcionCategoria)
+                    .IsRequired()
+                    .HasMaxLength(200)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Descripcion)
-                    .HasMaxLength(2000)
-                    .IsUnicode(false);
+                entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<CatalogoGeneral>(entity =>
@@ -958,37 +1082,36 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
                     .HasConstraintName("FK_dbo.CatalogoGeneral_dbo.CatalogoGeneral_PadreId");
             });
 
-            modelBuilder.Entity<CatalogoMedicamento>(entity =>
+            modelBuilder.Entity<CatalogoTipoFuncionalidad>(entity =>
             {
-                entity.ToTable("CatalogoMedicamento", "CreditoFarmacia");
+                entity.HasKey(e => e.IdTipoFuncionalidad);
 
-                entity.Property(e => e.Codigo)
-                    .HasMaxLength(50)
+                entity.ToTable("CatalogoTipoFuncionalidad", "Noticias");
+
+                entity.Property(e => e.DescripcionTipoFuncionalidad)
+                    .IsRequired()
+                    .HasMaxLength(1000)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Descripcion)
-                    .HasMaxLength(2000)
-                    .IsUnicode(false);
+                entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
 
-                entity.Property(e => e.Laboratorio)
+                entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<CatalogoTipoNoticia>(entity =>
+            {
+                entity.HasKey(e => e.IdTipoNoticia);
+
+                entity.ToTable("CatalogoTipoNoticia", "Noticias");
+
+                entity.Property(e => e.DescripcionTipoNoticia)
+                    .IsRequired()
                     .HasMaxLength(200)
                     .IsUnicode(false);
 
-                entity.Property(e => e.PrincipioActivo)
-                    .HasMaxLength(200)
-                    .IsUnicode(false);
+                entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
 
-                entity.Property(e => e.Pvp).HasColumnName("PVP");
-
-                entity.Property(e => e.Pvpfraccion).HasColumnName("PVPFraccion");
-
-                entity.Property(e => e.TipoProducto)
-                    .HasMaxLength(200)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Tratamiento)
-                    .HasMaxLength(200)
-                    .IsUnicode(false);
+                entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<CategoriasReembolso>(entity =>
@@ -1052,6 +1175,549 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
                 entity.Property(e => e.TipoDocumentoTitular)
                     .IsRequired()
                     .HasMaxLength(250)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Cfconciliacion>(entity =>
+            {
+                entity.HasKey(e => e.IdConciliacion);
+
+                entity.ToTable("CFConciliacion", "CreditoFarmacia");
+
+                entity.Property(e => e.CorreosNotificacion)
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Estado)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaFin).HasColumnType("datetime");
+
+                entity.Property(e => e.NombreArchivo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Url)
+                    .HasMaxLength(350)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<CfconciliacionCredito>(entity =>
+            {
+                entity.ToTable("CFConciliacionCredito", "CreditoFarmacia");
+
+                entity.Property(e => e.AutorizacionSri)
+                    .HasMaxLength(120)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ClaveAcceso)
+                    .HasMaxLength(120)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Estado)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FechaFactura).HasColumnType("datetime");
+
+                entity.Property(e => e.NumeroFactura)
+                    .HasMaxLength(40)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdConciliacionNavigation)
+                    .WithMany(p => p.CfconciliacionCredito)
+                    .HasForeignKey(d => d.IdConciliacion)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CFConciliacionCredito_CFConciliacion");
+            });
+
+            modelBuilder.Entity<CfconciliacionDetalle>(entity =>
+            {
+                entity.ToTable("CFConciliacionDetalle", "CreditoFarmacia");
+
+                entity.Property(e => e.DescripcionError)
+                    .HasMaxLength(1000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Estado)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
+
+                entity.HasOne(d => d.IdConciliacionCreditoNavigation)
+                    .WithMany(p => p.CfconciliacionDetalle)
+                    .HasForeignKey(d => d.IdConciliacionCredito)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CFConciliacionDetalle_CFConciliacionCredito");
+            });
+
+            modelBuilder.Entity<CfconciliacionLogs>(entity =>
+            {
+                entity.ToTable("CFConciliacionLogs", "CreditoFarmacia");
+
+                entity.Property(e => e.DatosEnvio).IsUnicode(false);
+
+                entity.Property(e => e.DatosRespuesta).IsUnicode(false);
+
+                entity.Property(e => e.FechaEnvio).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaRespuesta).HasColumnType("datetime");
+
+                entity.Property(e => e.Proceso)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SubProceso)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<CfconfReglaControlDespacho>(entity =>
+            {
+                entity.HasKey(e => e.TipoTratamiendo);
+
+                entity.ToTable("CFConfReglaControlDespacho", "CreditoFarmacia");
+
+                entity.Property(e => e.TipoTratamiendo)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .ValueGeneratedNever();
+            });
+
+            modelBuilder.Entity<CfcorreosNotificar>(entity =>
+            {
+                entity.ToTable("CFCorreosNotificar", "CreditoFarmacia");
+
+                entity.Property(e => e.Correo)
+                    .IsRequired()
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NombrePrestador)
+                    .IsRequired()
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Nombres)
+                    .IsRequired()
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Cfdiagnostico>(entity =>
+            {
+                entity.ToTable("CFDiagnostico", "CreditoFarmacia");
+
+                entity.Property(e => e.CodigoDiagnostico)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DescripcionDiagnostico)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdSolicitudNavigation)
+                    .WithMany(p => p.Cfdiagnostico)
+                    .HasForeignKey(d => d.IdSolicitud)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DiagnosticoSolicitud");
+            });
+
+            modelBuilder.Entity<CfdiagnosticoRechazo>(entity =>
+            {
+                entity.ToTable("CFDiagnosticoRechazo", "CreditoFarmacia");
+
+                entity.Property(e => e.CodigoDiagnostico)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DescripcionDiagnostico)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ReglaAplicada)
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdSolicitudNavigation)
+                    .WithMany(p => p.CfdiagnosticoRechazo)
+                    .HasForeignKey(d => d.IdSolicitud)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CFDiagnosticoRechazo_CFSolicitudRechazo");
+            });
+
+            modelBuilder.Entity<CferrorConciliacion>(entity =>
+            {
+                entity.ToTable("CFErrorConciliacion", "CreditoFarmacia");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Descripcion)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<CferrorConciliacionMi02CausasNoMigrar>(entity =>
+            {
+                entity.HasKey(e => new { e.IdCferrorConciliacion, e.CodigoCausaProgress });
+
+                entity.ToTable("CFErrorConciliacionMi02CausasNoMigrar", "CreditoFarmacia");
+
+                entity.Property(e => e.IdCferrorConciliacion).HasColumnName("IdCFErrorConciliacion");
+
+                entity.Property(e => e.Mensaje)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Motivo)
+                    .IsRequired()
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdCferrorConciliacionNavigation)
+                    .WithMany(p => p.CferrorConciliacionMi02CausasNoMigrar)
+                    .HasForeignKey(d => d.IdCferrorConciliacion)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CFErrorConciliacionMi02CausasNoMigrar_CFErrorConciliacion");
+            });
+
+            modelBuilder.Entity<Cfingreso>(entity =>
+            {
+                entity.ToTable("CFIngreso", "CreditoFarmacia");
+
+                entity.Property(e => e.CodigoIngreso)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DataSolicitudIngresoCredito).HasMaxLength(4000);
+
+                entity.Property(e => e.Estado)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FechaConciliacion).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
+
+                entity.Property(e => e.Observacion)
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdSolicitudNavigation)
+                    .WithMany(p => p.Cfingreso)
+                    .HasForeignKey(d => d.IdSolicitud)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_IngresoSolicitud");
+            });
+
+            modelBuilder.Entity<Cfmedicamento>(entity =>
+            {
+                entity.ToTable("CFMedicamento", "CreditoFarmacia");
+
+                entity.Property(e => e.CodigoBeneficio)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CodigoProducto)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DescripcionProducto)
+                    .HasMaxLength(2000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PrincipioActivo)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Valor).HasColumnType("decimal(18, 0)");
+            });
+
+            modelBuilder.Entity<CfmedicamentoRechazo>(entity =>
+            {
+                entity.ToTable("CFMedicamentoRechazo", "CreditoFarmacia");
+
+                entity.Property(e => e.CodigoProducto)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DescripcionProducto)
+                    .HasMaxLength(2000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PrincipioActivo)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ReglaAplicada)
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdSolicitudNavigation)
+                    .WithMany(p => p.CfmedicamentoRechazo)
+                    .HasForeignKey(d => d.IdSolicitud)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CFMedicamentoRechazo_CFSolicitudRechazo");
+            });
+
+            modelBuilder.Entity<Cfmedicina>(entity =>
+            {
+                entity.HasKey(e => e.CodigoMedicinaSaludsa);
+
+                entity.ToTable("CFMedicina", "CreditoFarmacia");
+
+                entity.Property(e => e.CodigoMedicinaSaludsa)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.CodigoBeneficio)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CodigoBeneficioNuevosPlanes)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Descripcion)
+                    .IsRequired()
+                    .HasMaxLength(1000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PrincipioActivo)
+                    .IsRequired()
+                    .HasMaxLength(1000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TipoProducto)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TipoTratamiento)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<CfmedicinaPrestadorProducto>(entity =>
+            {
+                entity.HasKey(e => new { e.CodigoMedicinaPrestador, e.NumeroConvenio, e.CodigoMedicinaSaludsa, e.IdProducto });
+
+                entity.ToTable("CFMedicinaPrestadorProducto", "CreditoFarmacia");
+
+                entity.Property(e => e.CodigoMedicinaPrestador)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CodigoMedicinaSaludsa)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IdProducto)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.CodigoMedicinaSaludsaNavigation)
+                    .WithMany(p => p.CfmedicinaPrestadorProducto)
+                    .HasForeignKey(d => d.CodigoMedicinaSaludsa)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CreditoFarmacia_MedicinaPrestadorProducto_CreditoFarmacia_Medicina");
+
+                entity.HasOne(d => d.IdProductoNavigation)
+                    .WithMany(p => p.CfmedicinaPrestadorProducto)
+                    .HasForeignKey(d => d.IdProducto)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CreditoFarmacia_MedicinaPrestadorProducto_CreditoFarmacia_Producto");
+
+                entity.HasOne(d => d.Cfprestador)
+                    .WithMany(p => p.CfmedicinaPrestadorProducto)
+                    .HasForeignKey(d => new { d.CodigoMedicinaPrestador, d.NumeroConvenio })
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CreditoFarmacia_MedicinaPrestadorProducto_CreditoFarmacia_Prestador");
+            });
+
+            modelBuilder.Entity<CfobservacionSolicitud>(entity =>
+            {
+                entity.ToTable("CFObservacionSolicitud", "CreditoFarmacia");
+
+                entity.Property(e => e.EstadoConciliacion)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.EstadoSolicitud)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FechaObservacion).HasColumnType("datetime");
+
+                entity.Property(e => e.Observacion)
+                    .HasMaxLength(2000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Peticion).HasColumnType("text");
+
+                entity.Property(e => e.Respuesta)
+                    .HasMaxLength(8000)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Cfprestador>(entity =>
+            {
+                entity.HasKey(e => new { e.CodigoMedicinaPrestador, e.NumeroConvenio });
+
+                entity.ToTable("CFPrestador", "CreditoFarmacia");
+
+                entity.Property(e => e.CodigoMedicinaPrestador)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Descripcion)
+                    .IsRequired()
+                    .HasMaxLength(1000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Cfproducto>(entity =>
+            {
+                entity.HasKey(e => e.IdProducto);
+
+                entity.ToTable("CFProducto", "CreditoFarmacia");
+
+                entity.Property(e => e.IdProducto)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.CodigoPlan)
+                    .IsRequired()
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CodigoProducto)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Cfregla>(entity =>
+            {
+                entity.HasKey(e => new { e.NumeroConvenio, e.IdProducto, e.NombreRegla });
+
+                entity.ToTable("CFRegla", "CreditoFarmacia");
+
+                entity.Property(e => e.IdProducto)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NombreRegla)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdProductoNavigation)
+                    .WithMany(p => p.Cfregla)
+                    .HasForeignKey(d => d.IdProducto)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CreditoFarmacia_Regla");
+            });
+
+            modelBuilder.Entity<Cfsolicitud>(entity =>
+            {
+                entity.ToTable("CFSolicitud", "CreditoFarmacia");
+
+                entity.Property(e => e.CodigoCobertura)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CodigoPlan)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Estado)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
+
+                entity.Property(e => e.NombrePaciente)
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NumeroDocumento)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Observacion)
+                    .HasMaxLength(2000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Producto)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Region)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TipoDocumento)
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TotalFactura).HasColumnType("decimal(18, 0)");
+
+                entity.Property(e => e.ValorCopago).HasColumnType("decimal(18, 0)");
+            });
+
+            modelBuilder.Entity<CfsolicitudRechazo>(entity =>
+            {
+                entity.ToTable("CFSolicitudRechazo", "CreditoFarmacia");
+
+                entity.Property(e => e.CodigoPlan)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
+
+                entity.Property(e => e.NombrePaciente)
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NumeroDocumento)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Observacion)
+                    .HasMaxLength(2000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Producto)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Region)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ReglaAplicada)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TipoDocumento)
+                    .HasMaxLength(1)
                     .IsUnicode(false);
             });
 
@@ -1243,6 +1909,35 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
                 entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
 
                 entity.Property(e => e.IdPersona).ValueGeneratedOnAdd();
+            });
+
+            modelBuilder.Entity<ClasificacionClientes>(entity =>
+            {
+                entity.HasKey(e => new { e.FechaCarga, e.CodigoProducto, e.Region, e.NumeroDocumentoBeneficiario, e.ContratoNumero, e.PersonaNumero });
+
+                entity.ToTable("ClasificacionClientes", "SaludsaContigo");
+
+                entity.Property(e => e.FechaCarga).HasColumnType("date");
+
+                entity.Property(e => e.CodigoProducto)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Region)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NumeroDocumentoBeneficiario)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Categorizacion)
+                    .HasMaxLength(300)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NombresBeneficiario)
+                    .HasMaxLength(300)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Cobertura>(entity =>
@@ -1784,6 +2479,41 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
                     .IsUnicode(false);
             });
 
+            modelBuilder.Entity<ConfCentrosMedicos>(entity =>
+            {
+                entity.HasKey(e => e.NombreCorto);
+
+                entity.ToTable("ConfCentrosMedicos", "ContabilizacionCitas");
+
+                entity.Property(e => e.NombreCorto)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .ValueGeneratedNever();
+            });
+
+            modelBuilder.Entity<ConfCentrosMedicosNotificacion>(entity =>
+            {
+                entity.HasKey(e => new { e.CodigoNotificacion, e.NombreCorto });
+
+                entity.ToTable("ConfCentrosMedicosNotificacion", "ContabilizacionCitas");
+
+                entity.Property(e => e.NombreCorto)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.CodigoNotificacionNavigation)
+                    .WithMany(p => p.ConfCentrosMedicosNotificacion)
+                    .HasForeignKey(d => d.CodigoNotificacion)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ConfCentrosMedicosNotificacion_Notificacion");
+
+                entity.HasOne(d => d.NombreCortoNavigation)
+                    .WithMany(p => p.ConfCentrosMedicosNotificacion)
+                    .HasForeignKey(d => d.NombreCorto)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ConfCentrosMedicosNotificacion_ConfCentrosMedicos");
+            });
+
             modelBuilder.Entity<Configuracion>(entity =>
             {
                 entity.HasIndex(e => e.Codigo)
@@ -1916,6 +2646,10 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
+                entity.Property(e => e.CodigoPlanExcepsion)
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.Data)
                     .IsRequired()
                     .IsUnicode(false);
@@ -1966,6 +2700,96 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
                     .HasForeignKey<ConfiguracionPrestadorSrvCita>(d => d.PrestadorId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ConfiguracionPrestadorSrvCita_Prestador");
+            });
+
+            modelBuilder.Entity<ConfParametrosConsultas>(entity =>
+            {
+                entity.HasKey(e => new { e.IdCiudad, e.NombreCorto, e.CodigoAlphaEspecialidad });
+
+                entity.ToTable("ConfParametrosConsultas", "ContabilizacionCitas");
+
+                entity.Property(e => e.NombreCorto)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CodigoAlphaEspecialidad)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FechaNacimiento).HasColumnType("datetime");
+
+                entity.Property(e => e.Genero)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.NombreCortoNavigation)
+                    .WithMany(p => p.ConfParametrosConsultas)
+                    .HasForeignKey(d => d.NombreCorto)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ConfParametrosConsultas_ConfCentrosMedicos");
+            });
+
+            modelBuilder.Entity<ContabilizacionCitasMedicas>(entity =>
+            {
+                entity.ToTable("ContabilizacionCitasMedicas", "ContabilizacionCitas");
+
+                entity.Property(e => e.CodigoAlphaEspecialidad)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CodigoSucursal)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FechaCita).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaFin).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaInicio).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaProceso).HasColumnType("datetime");
+
+                entity.Property(e => e.HoraFin)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.HoraInicio)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IdentificadorProceso)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NombreCiudad)
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NombreCorto)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NombreEspecialidad)
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NombreMedico)
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NombreSucursal)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.ConfParametrosConsultas)
+                    .WithMany(p => p.ContabilizacionCitasMedicas)
+                    .HasForeignKey(d => new { d.IdCiudad, d.NombreCorto, d.CodigoAlphaEspecialidad })
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__ContabilizacionC__770C69D1");
             });
 
             modelBuilder.Entity<ContactoGesPacientes>(entity =>
@@ -2133,6 +2957,14 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
                     .IsUnicode(false);
 
                 entity.Property(e => e.ValorDescuento).HasColumnType("decimal(5, 2)");
+
+                entity.Property(e => e.ValorDescuentoTexto)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ValorTotalConDescuentoTexto)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<ControlCitas>(entity =>
@@ -2172,15 +3004,44 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
                 entity.Property(e => e.Telefono).IsUnicode(false);
             });
 
-            modelBuilder.Entity<Convenio>(entity =>
+            modelBuilder.Entity<CoordinaLlamada>(entity =>
             {
-                entity.ToTable("Convenio", "CreditoFarmacia");
+                entity.ToTable("CoordinaLlamada", "Telemedicina");
 
-                entity.Property(e => e.NombrePrestador)
-                    .HasMaxLength(2000)
+                entity.Property(e => e.CelularContacto)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Numero)
+                entity.Property(e => e.CodigoCiudad)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CorreoCliente)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Estado)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FechaProceso).HasColumnType("datetime");
+
+                entity.Property(e => e.Motivo)
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NombreBeneficiario)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NombreCiudad)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TelefonoContacto)
                     .HasMaxLength(50)
                     .IsUnicode(false);
             });
@@ -2713,25 +3574,6 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
                     .HasConstraintName("FK_DetallesCoberturaDent_CoberturasDent");
             });
 
-            modelBuilder.Entity<Diagnostico>(entity =>
-            {
-                entity.ToTable("Diagnostico", "CreditoFarmacia");
-
-                entity.Property(e => e.CodigoDiagnostico)
-                    .HasMaxLength(10)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.DescripcionDiagnostico)
-                    .HasMaxLength(200)
-                    .IsUnicode(false);
-
-                entity.HasOne(d => d.IdSolicitudNavigation)
-                    .WithMany(p => p.Diagnostico)
-                    .HasForeignKey(d => d.IdSolicitud)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_DiagnosticoSolicitud");
-            });
-
             modelBuilder.Entity<Diagnosticos>(entity =>
             {
                 entity.ToTable("Diagnosticos", "Digital");
@@ -3203,9 +4045,19 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
 
                 entity.Property(e => e.FechaAutorizacionHospitalaria).HasColumnType("datetime");
 
+                entity.Property(e => e.FechaEnvioMailAdicional).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaEnvioMailCliente).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaEnvioMailPrestador).HasColumnType("datetime");
+
                 entity.Property(e => e.FechaProcedimiento).HasColumnType("datetime");
 
                 entity.Property(e => e.FechaRegistro).HasColumnType("datetime");
+
+                entity.Property(e => e.MailAdicional)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.MedicoTratante)
                     .IsRequired()
@@ -3258,6 +4110,14 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
 
                 entity.Property(e => e.TelefonoAcompanante)
                     .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TipoSolicitud)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TipoTratamiento)
+                    .HasMaxLength(100)
                     .IsUnicode(false);
 
                 entity.Property(e => e.UrlTicketZendesk)
@@ -3357,6 +4217,195 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
                     .WithMany(p => p.GapNavigation)
                     .HasForeignKey(d => d.ResumenId)
                     .HasConstraintName("FK_dbo.Gap_dbo.Resumen_ResumenId");
+            });
+
+            modelBuilder.Entity<Grupo>(entity =>
+            {
+                entity.HasKey(e => e.IdGrupo);
+
+                entity.ToTable("Grupo", "GestionContenido");
+
+                entity.Property(e => e.IdGrupo)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.Descripcion)
+                    .IsRequired()
+                    .HasMaxLength(1000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaDesactivacion).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Grupo1>(entity =>
+            {
+                entity.HasKey(e => e.IdGrupo);
+
+                entity.ToTable("Grupo");
+
+                entity.Property(e => e.IdGrupo)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.Descripcion)
+                    .IsRequired()
+                    .HasMaxLength(1000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FechaCreación).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaDesactivacion).HasColumnType("datetime");
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Grupo2>(entity =>
+            {
+                entity.HasKey(e => e.IdGrupo);
+
+                entity.ToTable("Grupo", "Noticias");
+
+                entity.Property(e => e.IdGrupo)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.Descripcion)
+                    .IsRequired()
+                    .HasMaxLength(1000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaDesactivacion).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<GrupoNoticias>(entity =>
+            {
+                entity.HasKey(e => e.IdGrupoNoticias);
+
+                entity.ToTable("GrupoNoticias", "Noticias");
+
+                entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
+
+                entity.Property(e => e.IdGrupo)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdGrupoNavigation)
+                    .WithMany(p => p.GrupoNoticias)
+                    .HasForeignKey(d => d.IdGrupo)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_GrupoNoticias_Grupo");
+
+                entity.HasOne(d => d.IdNoticiaNavigation)
+                    .WithMany(p => p.GrupoNoticias)
+                    .HasForeignKey(d => d.IdNoticia)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_GrupoNoticias_Noticia");
+            });
+
+            modelBuilder.Entity<GrupoProductoPlan>(entity =>
+            {
+                entity.HasKey(e => e.IdGrupoProductoPlan);
+
+                entity.ToTable("GrupoProductoPlan", "Noticias");
+
+                entity.Property(e => e.IdGrupoProductoPlan)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaDesactivacion).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
+
+                entity.Property(e => e.IdGrupo)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IdPlan)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IdProducto)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdGrupoNavigation)
+                    .WithMany(p => p.GrupoProductoPlan)
+                    .HasForeignKey(d => d.IdGrupo)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_GrupoProductoPlan_Grupo");
+
+                entity.HasOne(d => d.IdPlanNavigation)
+                    .WithMany(p => p.GrupoProductoPlan)
+                    .HasForeignKey(d => d.IdPlan)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_GrupoProductoPlan_Planes");
+            });
+
+            modelBuilder.Entity<GrupoProductoPlan1>(entity =>
+            {
+                entity.HasKey(e => e.IdGrupoProductoPlan);
+
+                entity.ToTable("GrupoProductoPlan", "GestionContenido");
+
+                entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaDesactivacion).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
+
+                entity.Property(e => e.IdGrupo)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IdPlan)
+                    .IsRequired()
+                    .HasMaxLength(8000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IdProducto)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdProductoNavigation)
+                    .WithMany(p => p.GrupoProductoPlan1)
+                    .HasForeignKey(d => d.IdProducto)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_GrupoProductoPlan_Productos");
             });
 
             modelBuilder.Entity<HomologacionEstados>(entity =>
@@ -3789,29 +4838,6 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<Medicamento>(entity =>
-            {
-                entity.ToTable("Medicamento", "CreditoFarmacia");
-
-                entity.Property(e => e.CodigoProducto)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.DescripcionProducto)
-                    .HasMaxLength(2000)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.PrincipioActivo)
-                    .HasMaxLength(200)
-                    .IsUnicode(false);
-
-                entity.HasOne(d => d.IdSolicitudNavigation)
-                    .WithMany(p => p.Medicamento)
-                    .HasForeignKey(d => d.IdSolicitud)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_MedicamentoSolicitud");
-            });
-
             modelBuilder.Entity<MensajeError>(entity =>
             {
                 entity.ToTable("MensajeError", "Administracion");
@@ -3958,6 +4984,88 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
 
             modelBuilder.Entity<Noticia>(entity =>
             {
+                entity.HasKey(e => e.IdNoticia);
+
+                entity.ToTable("Noticia", "Noticias");
+
+                entity.Property(e => e.CuerpoNoticia)
+                    .IsRequired()
+                    .HasMaxLength(8000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.EtiquetaNoticia)
+                    .IsRequired()
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaPublicadoFin).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaPublicadoInicio).HasColumnType("datetime");
+
+                entity.Property(e => e.SubtituloNoticia)
+                    .IsRequired()
+                    .HasMaxLength(1000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TituloNoticia)
+                    .IsRequired()
+                    .HasMaxLength(1000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UrlImagen)
+                    .IsRequired()
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UsuarioRegistrador)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdCategoriaNavigation)
+                    .WithMany(p => p.Noticia)
+                    .HasForeignKey(d => d.IdCategoria)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Noticia_CatalogoCategorias");
+            });
+
+            modelBuilder.Entity<Noticia1>(entity =>
+            {
+                entity.ToTable("Noticia");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Etiquetas)
+                    .HasMaxLength(400)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaFinPublicacion).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaInicioPublicacion).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaUltimaModificacion).HasColumnType("datetime");
+
+                entity.Property(e => e.ImagenUrl)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Subtitulo)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Titulo)
+                    .IsRequired()
+                    .HasMaxLength(400)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Noticia2>(entity =>
+            {
                 entity.ToTable("Noticia", "GestionContenido");
 
                 entity.Property(e => e.Categoria)
@@ -4007,6 +5115,20 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
                     .HasMaxLength(30);
 
                 entity.Property(e => e.UsuarioModificacion).HasMaxLength(30);
+            });
+
+            modelBuilder.Entity<Notificacion>(entity =>
+            {
+                entity.HasKey(e => e.CodigoNotificacion);
+
+                entity.ToTable("Notificacion", "ContabilizacionCitas");
+
+                entity.Property(e => e.CodigoNotificacion).ValueGeneratedNever();
+
+                entity.Property(e => e.CorreoNotificacion)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<NotificacionTerminosCondiciones>(entity =>
@@ -4106,31 +5228,6 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
                     .WithMany(p => p.ObservacionSalas)
                     .HasForeignKey(d => d.CodigoSalas)
                     .HasConstraintName("FK_ObservacionSalas_CodigoSalas_Salas_Codigo");
-            });
-
-            modelBuilder.Entity<ObservacionSolicitud>(entity =>
-            {
-                entity.ToTable("ObservacionSolicitud", "CreditoFarmacia");
-
-                entity.Property(e => e.EstadoConciliacion)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.EstadoSolicitud)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.FechaObservacion).HasColumnType("datetime");
-
-                entity.Property(e => e.Observacion)
-                    .HasMaxLength(2000)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Peticion).HasColumnType("text");
-
-                entity.Property(e => e.Respuesta)
-                    .HasMaxLength(8000)
-                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<ObservacionSubtipo>(entity =>
@@ -4256,6 +5353,10 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
+                entity.Property(e => e.DescripcionTipoSolicitud)
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.Diagnostico)
                     .HasMaxLength(500)
                     .IsUnicode(false);
@@ -4287,6 +5388,10 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
                     .IsUnicode(false);
 
                 entity.Property(e => e.NombreBeneficiario)
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NombreSucursal)
                     .HasMaxLength(250)
                     .IsUnicode(false);
 
@@ -4333,6 +5438,10 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
 
                 entity.Property(e => e.TipoOrdenAtencion)
                     .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TipoSolicitud)
+                    .HasMaxLength(100)
                     .IsUnicode(false);
 
                 entity.Property(e => e.UsuarioAprobador)
@@ -4688,19 +5797,6 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
             modelBuilder.Entity<ParametroServicioWebs>(entity =>
             {
                 entity.HasKey(e => e.IdParametroServicioWeb);
-
-                entity.ToTable("ParametroServicioWebs", "Administracion");
-
-                entity.Property(e => e.Codigo).HasMaxLength(100);
-
-                entity.Property(e => e.Servicio).HasMaxLength(100);
-            });
-
-            modelBuilder.Entity<ParametroServicioWebs1>(entity =>
-            {
-                entity.HasKey(e => e.IdParametroServicioWeb);
-
-                entity.ToTable("ParametroServicioWebs");
             });
 
             modelBuilder.Entity<Periodo>(entity =>
@@ -4888,6 +5984,78 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
                 entity.Property(e => e.TituloPantalla)
                     .HasMaxLength(250)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Planes>(entity =>
+            {
+                entity.HasKey(e => e.IdPlan);
+
+                entity.ToTable("Planes", "Noticias");
+
+                entity.Property(e => e.IdPlan)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.DescripcionPlan)
+                    .HasMaxLength(1000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
+
+                entity.Property(e => e.IdProducto)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NombrePlan)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdProductoNavigation)
+                    .WithMany(p => p.Planes)
+                    .HasForeignKey(d => d.IdProducto)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Planes_Productos");
+            });
+
+            modelBuilder.Entity<Planes1>(entity =>
+            {
+                entity.HasKey(e => e.IdPlan);
+
+                entity.ToTable("Planes", "GestionContenido");
+
+                entity.Property(e => e.IdPlan)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.DescripcionPlan)
+                    .HasMaxLength(1000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
+
+                entity.Property(e => e.IdProducto)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NombrePlan)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdProductoNavigation)
+                    .WithMany(p => p.Planes1)
+                    .HasForeignKey(d => d.IdProducto)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Planes_Productos");
             });
 
             modelBuilder.Entity<Poliza>(entity =>
@@ -5145,6 +6313,34 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
                     .IsUnicode(false);
             });
 
+            modelBuilder.Entity<PrestadoresHomologadosZendesk>(entity =>
+            {
+                entity.ToTable("PrestadoresHomologadosZendesk", "FormularioHospitalario");
+
+                entity.HasIndex(e => e.NumeroConvenio)
+                    .HasName("IX_PrestadoresHomologadosZendesk");
+
+                entity.Property(e => e.NombreComercialPrestador)
+                    .IsRequired()
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NombrePrestador)
+                    .IsRequired()
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NombrePrestadorZendesk)
+                    .IsRequired()
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Region)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
             modelBuilder.Entity<PrestadorGesPacientes>(entity =>
             {
                 entity.ToTable("PrestadorGesPacientes", "GestionPacientes");
@@ -5214,6 +6410,58 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
                 entity.Property(e => e.Nombre)
                     .IsRequired()
                     .HasMaxLength(500)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Productos>(entity =>
+            {
+                entity.HasKey(e => e.IdProducto);
+
+                entity.ToTable("Productos", "Noticias");
+
+                entity.Property(e => e.IdProducto)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.DescripcionProducto)
+                    .IsRequired()
+                    .HasMaxLength(1000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
+
+                entity.Property(e => e.NombreProducto)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Productos1>(entity =>
+            {
+                entity.HasKey(e => e.IdProducto);
+
+                entity.ToTable("Productos", "GestionContenido");
+
+                entity.Property(e => e.IdProducto)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.DescripcionProducto)
+                    .IsRequired()
+                    .HasMaxLength(1000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
+
+                entity.Property(e => e.NombreProducto)
+                    .IsRequired()
+                    .HasMaxLength(100)
                     .IsUnicode(false);
             });
 
@@ -5853,7 +7101,11 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
                     .IsUnicode(false);
 
                 entity.Property(e => e.TelefonoContacto)
-                    .HasMaxLength(20)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UsuarioGestion)
+                    .HasMaxLength(350)
                     .IsUnicode(false);
 
                 entity.Property(e => e.UsuarioModificacion)
@@ -5997,75 +7249,31 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
                     .HasConstraintName("FK_dbo.ServicioBeneficiario_dbo.Servicio_ServicioAdicionalId");
             });
 
-            modelBuilder.Entity<Solicitud>(entity =>
+            modelBuilder.Entity<ServiciosHabilitadosApps>(entity =>
             {
-                entity.ToTable("Solicitud", "CreditoFarmacia");
+                entity.HasKey(e => new { e.IdProducto, e.IdPlan, e.Servicio });
 
-                entity.Property(e => e.Autorizacion)
-                    .HasMaxLength(200)
+                entity.ToTable("ServiciosHabilitadosApps", "SaludsaContigo");
+
+                entity.Property(e => e.IdProducto)
+                    .HasMaxLength(500)
                     .IsUnicode(false);
 
-                entity.Property(e => e.ClaveAcceso)
-                    .HasMaxLength(50)
+                entity.Property(e => e.IdPlan)
+                    .HasMaxLength(8000)
                     .IsUnicode(false);
 
-                entity.Property(e => e.CodigoPlan)
-                    .IsRequired()
-                    .HasMaxLength(50)
+                entity.Property(e => e.Servicio)
+                    .HasMaxLength(100)
                     .IsUnicode(false);
-
-                entity.Property(e => e.CodigoProducto)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Estado)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.FechaAtencion).HasColumnType("datetime");
 
                 entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
 
-                entity.Property(e => e.FechaExpiracion).HasColumnType("datetime");
+                entity.Property(e => e.FechaFinServicio).HasColumnType("datetime");
 
-                entity.Property(e => e.FechaFactura).HasColumnType("datetime");
+                entity.Property(e => e.FechaInicioServicio).HasColumnType("datetime");
 
-                entity.Property(e => e.IdCliente)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.IdPrestador)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.NombreCliente)
-                    .HasMaxLength(200)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.NombreOficina)
-                    .HasMaxLength(200)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.NombreSucursal)
-                    .HasMaxLength(200)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Observacion)
-                    .HasMaxLength(2000)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Receta)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.SerieFactura)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.TotalFactura).HasColumnType("decimal(18, 0)");
-
-                entity.Property(e => e.ValorCopago).HasColumnType("decimal(18, 0)");
+                entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<SolicitudCitaMedicoDestacado>(entity =>
@@ -6416,6 +7624,70 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
                     .IsUnicode(false);
             });
 
+            modelBuilder.Entity<TokenOda>(entity =>
+            {
+                entity.HasKey(e => e.IdTokenOda);
+
+                entity.ToTable("TokenOda", "Seguridad");
+
+                entity.Property(e => e.Celular)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CodigoPlan)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CodigoProducto)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CorreoElectronico)
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FechaCaducidad).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaGeneracion).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaRegistro).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaRevocacion).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaUso).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaValidacion).HasColumnType("datetime");
+
+                entity.Property(e => e.NombreBeneficiario)
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PrestadorNombre)
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Region)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TokenNumero)
+                    .IsRequired()
+                    .HasMaxLength(6)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UsuarioRegistro)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UsuarioValidacion)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Valor)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+            });
+
             modelBuilder.Entity<TotalCitaDisponible>(entity =>
             {
                 entity.ToTable("TotalCitaDisponible", "ContabilizacionCitas");
@@ -6499,6 +7771,22 @@ namespace SmartAdmin.Seed.BaseDatos.ContextoBaseDatos
                     .HasForeignKey(d => d.UsuarioId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_UsuarioRol_Usuario");
+            });
+
+            modelBuilder.Entity<ValoresFee>(entity =>
+            {
+                entity.HasKey(e => new { e.CodigoProducto, e.NumeroConvenio });
+
+                entity.ToTable("ValoresFee", "CreditoFarmacia");
+
+                entity.Property(e => e.CodigoProducto)
+                    .HasColumnName("codigoProducto")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NumeroConvenio).HasColumnName("numeroConvenio");
+
+                entity.Property(e => e.ValorFee).HasColumnName("valorFee");
             });
 
             modelBuilder.Entity<Versionamiento>(entity =>

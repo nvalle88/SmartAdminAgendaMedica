@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SmartAdmin.Seed.ModelsSaludsa
+namespace  SmartAdmin.Seed.ModelsSaludsa
 {
     public partial class FormularioHospitalario
     {
@@ -51,5 +51,15 @@ namespace SmartAdmin.Seed.ModelsSaludsa
         public string NombreCajero { get; set; }
         public string CorreoCajero { get; set; }
         public int? NumeroConvenioMedico { get; set; }
+        public string TipoSolicitud { get; set; }
+        public decimal? ValorProforma { get; set; }
+        public string TipoTratamiento { get; set; }
+        public string MailAdicional { get; set; }
+        public bool? MailClienteEnviado { get; set; }
+        public DateTime? FechaEnvioMailCliente { get; set; }
+        public bool? MailEnviadoPrestador { get; set; }
+        public DateTime? FechaEnvioMailPrestador { get; set; }
+        public bool? MailEnviadoAdicional { get; set; }
+        public DateTime? FechaEnvioMailAdicional { get; set; }
     }
 }

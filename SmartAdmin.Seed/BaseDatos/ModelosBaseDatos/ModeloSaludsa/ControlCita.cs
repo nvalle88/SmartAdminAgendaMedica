@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SmartAdmin.Seed.ModelsSaludsa
+namespace  SmartAdmin.Seed.ModelsSaludsa
 {
     public partial class ControlCita
     {
@@ -46,5 +46,7 @@ namespace SmartAdmin.Seed.ModelsSaludsa
         public bool? AceptaTerminosCondiciones { get; set; }
         public decimal? ValorDescuento { get; set; }
         public decimal? ValorFinal { get; set; }
+        public string ValorDescuentoTexto { get; set; }
+        public string ValorTotalConDescuentoTexto { get; set; }
     }
 }

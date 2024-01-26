@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Saludsa.UtilidadesRest;
 using SistemaPedidos.Utilidades;
 using SmartAdmin.Seed.BaseDatos.ContextoBaseDatos;
 using SmartAdmin.Seed.Models.DTO;
@@ -88,8 +87,8 @@ namespace SmartAdminSaludsa.Controllers
                 return new JsonResult(new RespuestaGenericaPaginada
                 {
                     Estado = Respuesta.OK,
-                    Resultado = resultado.IsNull() ? new List<ConvenioPlan>() : resultado,
-                    TotalRegistros = resultado.IsNull() ? 0 : TotalRegistros,
+                    Resultado = resultado   == null ? new List<ConvenioPlan>() : resultado,
+                    TotalRegistros = resultado == null ? 0 : TotalRegistros,
                     Mensaje = TotalRegistros == 0 ? "No existen " : string.Empty ,
 
                 });
@@ -127,7 +126,7 @@ namespace SmartAdminSaludsa.Controllers
                 return new JsonResult(new RespuestaGenericaPaginada
                 {
                     Estado = Respuesta.OK,
-                    Resultado = resultado.IsNull() ? new List<BeneficioConvenio>() : resultado,
+                    Resultado = resultado == null ? new List<BeneficioConvenio>() : resultado,
                     TotalRegistros = resultado.Count
                 });
 

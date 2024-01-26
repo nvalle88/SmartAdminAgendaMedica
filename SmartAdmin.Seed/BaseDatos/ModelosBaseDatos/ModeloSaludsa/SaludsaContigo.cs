@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SmartAdmin.Seed.ModelsSaludsa
+namespace  SmartAdmin.Seed.ModelsSaludsa
 {
     public partial class SaludsaContigo
     {
@@ -41,6 +41,7 @@ namespace SmartAdmin.Seed.ModelsSaludsa
         public bool Estado { get; set; }
         public DateTime? FechaEnrolamientoReal { get; set; }
         public string ObservacionEnrolamiento { get; set; }
+        public bool? EsNuevoRegistro { get; set; }
 
         public ICollection<SeguimientoPrestadorSaludsaContigo> SeguimientoPrestadorSaludsaContigo { get; set; }
     }

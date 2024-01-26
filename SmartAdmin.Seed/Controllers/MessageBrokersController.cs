@@ -5,18 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Saludsa.UtilidadesRest;
-using SistemaPedidos.Utilidades;
-using SistemaPedidos.Utils;
 using SmartAdmin.Seed.BaseDatos.ContextoBaseDatos;
 using SmartAdmin.Seed.BaseDatos.ModelosBaseDatos.bdd_MessageBroker;
 using SmartAdmin.Seed.Models.DTO;
-using SmartAdminSaludsa.DBcontextPrestadores;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 #endregion
 
@@ -64,7 +58,7 @@ namespace SmartAdminSaludsa.Controllers
 
                 query = query.Where(x => x.FechaCreacion >= fechaInicio && x.FechaCreacion <= fechaFin);
 
-                if (numeroSobre.IsNotNullOrEmpty())
+                if (numeroSobre == null)
                     query = query.Where(x => x.NumeroSobre.Equals(numeroSobre, StringComparison.InvariantCultureIgnoreCase));
 
 
@@ -80,8 +74,8 @@ namespace SmartAdminSaludsa.Controllers
                 return new JsonResult(new RespuestaGenericaPaginada
                 {
                     Estado = Respuesta.OK,
-                    Resultado = resultado.IsNull() ? new List<Sobre>() : resultado,
-                    TotalRegistros = resultado.IsNull() ? 0 : TotalRegistros,
+                    Resultado = resultado ==null ? new List<Sobre>() : resultado,
+                    TotalRegistros = resultado==null ? 0 : TotalRegistros,
                     Mensaje = TotalRegistros == 0 ? "No existen " : string.Empty,
 
                 });

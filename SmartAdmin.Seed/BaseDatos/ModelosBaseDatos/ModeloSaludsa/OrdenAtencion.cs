@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SmartAdmin.Seed.ModelsSaludsa
+namespace  SmartAdmin.Seed.ModelsSaludsa
 {
     public partial class OrdenAtencion
     {
@@ -48,6 +48,11 @@ namespace SmartAdmin.Seed.ModelsSaludsa
         public DateTime? FechaServicio { get; set; }
         public string Direccion { get; set; }
         public string Referencia { get; set; }
+        public string TipoSolicitud { get; set; }
+        public int? CodigoSucursal { get; set; }
+        public string NombreSucursal { get; set; }
+        public string DescripcionTipoSolicitud { get; set; }
+        public int? IdTicketZendesk { get; set; }
 
         public ICollection<ImagenOrdenAtencion> ImagenOrdenAtencion { get; set; }
     }
