@@ -15,5 +15,7 @@ namespace  SmartAdmin.Seed.ModelsSaludsa
         public string DataSolicitudIngresoCredito { get; set; }
 
         public Cfsolicitud IdSolicitudNavigation { get; set; }
+        public DateTime? FechaAnulacion { get;  set; }
+        public string ObservacionAnulacion { get;  set; }
     }
 }

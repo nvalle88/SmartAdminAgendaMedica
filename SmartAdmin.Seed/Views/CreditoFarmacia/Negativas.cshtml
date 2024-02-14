@@ -1,0 +1,419 @@
+﻿@section Migas{
+    <li class="active">Buscar negativas</li>
+}
+<style type="text/css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" >
+
+    ..custom-header {
+        background-color: #f2f2f2; /* Color de fondo */
+        font-weight: bold; /* Negrita */
+        text-align: center; /* Alineación centrada */
+        padding: 8px; /* Espaciado interno */
+    }
+
+    .custom-header:first-child {
+        border-top-left-radius: 5px; /* Borde redondeado superior izquierdo */
+    }
+
+    .custom-header:last-child {
+        border-top-right-radius: 5px; /* Borde redondeado superior derecho */
+    }
+
+</style>
+
+<section id="widget-grid" class="">
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div id="content" class="well no-padding">
+                <form method="post" novalidate="novalidate" class="smart-form client-form">
+                    <header>
+                        <b>Buscar negativas</b>
+                    </header>
+                    <fieldset>
+                        <section class="col col-sm-3">
+                            <label class="label">N&uacute;mero de documento*</label>
+                            <label class="input">
+                                <i class="icon-append fa fa-asterisk"></i>
+                                <input data-bind="value: filtro.cedulaCliente" placeholder="Número de documento">
+                                <b class="tooltip tooltip-bottom-right">Ingrese el n&uacute;mero de documento</b>
+                            </label>
+                        </section>
+
+                        <section class="col col-sm-12"></section>
+
+                    </fieldset>
+
+                    <footer>
+                        <div id="scrollTablaRetenciones"></div>
+
+                        <button id="btn-guardar" class="btn btn-primary"
+                                data-bind="click: buscarNegativas"
+                                type="submit">
+                            <i class="fa fa-search"></i>
+                            &nbsp;&nbsp;BUSCAR
+                        </button>
+                        <div id="scrollTabla"></div>
+                        <button class="btn btn-lg btn-default"
+                                data-bind="click: limpiarFiltros"
+                                type="submit">
+                            <i class="fa fa-sync"></i>
+                            &nbsp;&nbsp;LIMPIAR
+                        </button>
+
+                    </footer>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- row -->
+    <div data-bind=" visible: mostrarTabla()">
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget jarviswidget-color-darken " id="wid-id-0" data-widget-deletebutton="false" data-widget-collapsed="false" data-widget-colorbutton="false" data-widget-editbutton="false">
+                    <header style="background-color:#eb5c27;border:#eb5c27">
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+                        <h2>Lista de cr&eacute;ditos</h2>
+
+                    </header>
+                    <div>
+                        <div class="jarviswidget-editbox">
+                        </div>
+                        <div class="widget-body no-padding">
+                            <table id="tb" data-page-length="50" class="table table-striped table-bordered table-hover" style="border-color:#eb5c27" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th data-hide="phone" style="text-align:center">Prestador</th>
+                                        <th data-hide="phone" style="text-align:center">Fecha</th>
+                                        <th style="text-align:center" colspan="5">Cliente</th>
+                                        <th style="text-align:center">Medicamentos</th>
+                                    </tr>
+                                </thead>
+                                <tbody data-bind="template: { foreach: ListaNegativas(), as: 'negativa' }">
+                                    <tr>
+                                        <td class="text-center" data-bind="text: negativa.numeroConvenio"></td>
+                                        <td class="text-center" data-bind="text: moment(negativa.fechaCreacion).format('DD/MM/YYYY HH:mm:ss')"></td>
+                                        <td colspan="5">
+                                            <!-- Información del Cliente -->
+                                            <table class="table table-bordered" style="margin-bottom: 0;">
+                                                <tr>
+                                                    <td colspan="5">
+                                                        <strong><span data-bind="text: negativa.numeroDocumento"></span></strong><samp> </samp><strong><span data-bind="text: negativa.nombrePaciente"></span></strong>
+                                                        <ul style="float: right;">
+                                                                <a href="" data-bind="attr: { 'data-recchazogeneral':negativa.idSolicitud }">
+                                                                    <span data-bind="text: negativa.idSolicitud"></span>
+                                                                </a>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Código</strong> </td>
+                                                    <td><strong>Región</strong></td>
+                                                    <td><strong>Producto</strong></td>
+                                                    <td><strong>Plan</strong></td>
+                                                    <td><strong>Número</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span data-bind="text: negativa.numeroContrato"></span></td>
+                                                    <td><span data-bind="text: negativa.region"></span></td>
+                                                    <td><span data-bind="text: negativa.producto"></span></td>
+                                                    <td><span data-bind="text: negativa.codigoPlan"></span></td>
+                                                    <td><span data-bind="text: negativa.numeroPersona"></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="5"><strong>Di&aacute;gnosticos</strong></td>
+                                                </tr>
+                                                <!-- Inicio del bucle foreach -->
+                                                <!-- ko foreach: negativa.cfdiagnosticoRechazo -->
+                                                <tr>
+                                                    <td colspan="5">
+                                                        <strong>Código:</strong> <span  data-bind="text: codigoDiagnostico"></span><br>
+                                                        <strong>Descripción:</strong> <span data-bind="text: descripcionDiagnostico"></span>
+                                                    </td>
+                                                </tr>
+                                                <!-- Fin del bucle foreach -->
+                                                <!-- /ko -->
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <!-- Medicamentos -->
+                                            <table class="table table-bordered" style="margin-bottom: 0;">
+                                                <!-- Encabezados de la tabla -->
+                                                <tr>
+                                                    <td colspan="3">
+                                                        <strong><span style="text-align: left;"></span></strong>Medicamentos<samp> </samp><strong></strong>
+                                                        <ul class="list-unstyled" style="float: right;">
+                                                            <li>
+                                                                   Rechazo general <span class="badge badge-info" data-bind="text: negativa.rechazoGeneral ? 'Si' : 'No'"></span>
+                                                            </li>
+                                                        </ul>
+                                                        
+                                                    </td>
+
+                                                </tr>
+                                                <!-- Contenido de la tabla -->
+                                                <!-- ko foreach: negativa.cfmedicamentoRechazo -->
+                                                <tr>
+                                                    <td>
+                                                        <strong>Código:</strong> <span data-bind="text: codigoProducto"></span><br>
+                                                        <strong>Descripción:</strong> <span data-bind="text: descripcionProducto"></span><br />
+                                                        <strong>Regla:</strong> <span data-bind="text: reglaAplicada"></span>
+                                                    </td>
+                                                </tr>
+                                        </td>
+                                    </tr>
+                                    <!-- /ko -->
+                            </table>
+
+                            </td>
+
+                            </tr>
+                            </tbody>
+                            </table>
+
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <div data-bind=" visible: mostrarTablaBeneficioPlan()">
+        <div class="row">
+            <div class="col-xs-12 col-sm-7 col-md-7 col-lg-9 margin-top-0">
+                <h1 class="page-title text-align-center txt-color-blueDark">
+                    <b>   &nbsp;</b>
+                </h1>
+            </div>
+            <div class="col-xs-12 col-sm-5 col-md-5 col-lg-3 margin-top-0">
+                <ul id="sparks">
+                    <li class="sparks-info">
+                        <button id="btn-guardar" class="btn btn-primary text-right"
+                                data-bind="click: regrasarConvenioPlan">
+                            <i class="fa fa-arrow-left"></i>
+                            &nbsp;&nbsp;Regresar
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+
+    <script>
+
+        var viewModel = new ViewModel();
+
+        function formatJson(jsonString) {
+            try {
+                // Eliminar la parte "solicitud:" si está presente en la cadena JSON
+                jsonString = jsonString.replace("solicitud:", "");
+
+                var jsonObject = JSON.parse(jsonString);
+                var formattedJson = '<div class="table-responsive"><table class="table table-bordered">';
+
+                // Agregar el encabezado completo de la tabla (NombreCliente)
+                if (jsonObject.Factura && jsonObject.Factura.NombreCliente) {
+                    formattedJson += '<tr><th colspan="7">' + jsonObject.Factura.NombreCliente + '</th></tr>';
+                }
+
+                // Obtener datos de la región de crédito (si están disponibles)
+                var creditoData = '';
+                if (jsonObject.Credito) {
+                    var creditKeys = Object.keys(jsonObject.Credito).filter(function (key) {
+                        return key !== 'NumeroConvenio' && key !== 'FechaAtencion' && key !== 'FechaExpiracion' && key !== 'CodigoTitular' && key !== 'CodigoContrato';
+                    });
+                    formattedJson += '<tr>';
+                    creditKeys.forEach(function (key) {
+                        switch (key) {
+                            case 'NumeroContrato':
+                                formattedJson += '<th class="custom-header">Número</th>';
+                                break;
+                            case 'Region':
+                                formattedJson += '<th class="custom-header">Región</th>';
+                                break;
+                            case 'CodigoProducto':
+                                formattedJson += '<th class="custom-header">Producto</th>';
+                                break;
+                            case 'CodigoPlan':
+                                formattedJson += '<th class="custom-header">Plan</th>';
+                                break;
+                            case 'CodigoPaciente':
+                                formattedJson += '<th class="custom-header">Código Paciente</th>';
+                                break;
+                            default:
+                                formattedJson += '<th class="custom-header">' + key + '</th>';
+                                break;
+                        }
+                    });
+                    formattedJson += '</tr>';
+                    formattedJson += '<tr>';
+                    creditKeys.forEach(function (key) {
+                        formattedJson += '<td>' + jsonObject.Credito[key] + '</td>';
+                    });
+                    formattedJson += '</tr>';
+                } else {
+                    formattedJson += '<tr><td colspan="7">No hay información de Crédito</td></tr>';
+                }
+
+                // Agregar los encabezados de las secciones Medicamentos y Diagnosticos
+                formattedJson += '<tr>';
+                formattedJson += '<th class="custom-header" colspan="7">Diagnósticos</th>';
+                formattedJson += '</tr>';
+
+                // Obtener datos de la región de diagnósticos (si están disponibles)
+                if (jsonObject.Diagnosticos && jsonObject.Diagnosticos.length > 0) {
+                    jsonObject.Diagnosticos.forEach(function (diagnostico) {
+                        formattedJson += '<tr>';
+                        formattedJson += '<td colspan="7">' + 'Código: ' + diagnostico.CodigoDiagnostico + '<br>';
+                        formattedJson += 'Descripción: ' + diagnostico.DescripcionDiagnostico + '</td>';
+                        formattedJson += '</tr>';
+                    });
+                } else {
+                    formattedJson += '<tr><td colspan="7">No hay información de Diagnósticos</td></tr>';
+                }
+
+                // Agregar los encabezados de las secciones Medicamentos
+                formattedJson += '<tr>';
+                formattedJson += '<th class="custom-header" colspan="7">Medicamentos</th>';
+                formattedJson += '</tr>';
+
+                // Obtener datos de la región de medicamentos (si están disponibles)
+                if (jsonObject.Medicamentos && jsonObject.Medicamentos.length > 0) {
+                    jsonObject.Medicamentos.forEach(function (medicamento) {
+                        formattedJson += '<tr>';
+                        formattedJson += '<td colspan="7">' + 'CodigoProducto: ' + medicamento.CodigoProducto + '<br>';
+                        formattedJson += 'DescripcionProducto: ' + medicamento.DescripcionProducto + '</td>';
+                        formattedJson += '</tr>';
+                    });
+                } else {
+                    formattedJson += '<tr><td colspan="7">No hay información de Medicamentos</td></tr>';
+                }
+
+                formattedJson += '</table></div>';
+
+                return formattedJson;
+            } catch (error) {
+                return jsonString;
+            }
+        }
+
+
+        function cambiarEstadoCredito(id) {
+
+        }
+
+
+        function ViewModel() {
+
+            var self = this;
+
+            self.mostrarTabla = ko.observable(false);
+            self.mostrarTablaBeneficioPlan = ko.observable(false);
+
+            self.filtro = {
+                cedulaCliente: ko.observable(""),
+            };
+
+            self.limpiarFiltros = function () {
+
+                mostrarLoadingPanel("content", "");
+                location.href = '@Url.Action("Negativas", "CreditoFarmacia")';
+            };
+
+            self.ListaNegativas = ko.observableArray([]);
+
+
+
+            self.validarFormulariobuscarConvenioPlan = function () {
+
+                if (self.filtro.cedulaCliente() == "") {
+                    mensaje = "El número de documento es obligatorio.";
+                    mostrarNotificacion("Aviso", mensaje);
+                    $("#content").waitMe("hide");
+                    return false;
+                }
+                return true;
+            }
+
+            self.buscarNegativas = function () {
+                self.buscarNegativas(1);
+            }
+
+            self.regrasarConvenioPlan = function () {
+                mostrarLoadingPanel("content", "");
+                self.mostrarTabla(true);
+                self.mostrarTablaBeneficioPlan(false);
+                $("#content").waitMe("hide");
+            }
+
+            self.buscarNegativas = function (paginaActual) {
+
+                self.mostrarTablaBeneficioPlan(false);
+                mostrarLoadingPanel("content", "");
+
+                var validacion = self.validarFormulariobuscarConvenioPlan();
+                if (validacion == false) {
+                    $("#content").waitMe("hide");
+                    return;
+                }
+
+                var myUrl = '@Url.Action("ListaNegativas","CreditoFarmacia")';
+                var url = myUrl +
+                    '?numeroDocumento=' + self.filtro.cedulaCliente();
+
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    contentType: "application/json; charset=utf-8",
+                    datatype: "json",
+                    timeout: 500000,
+                    success: function (data) {
+
+                        if (data.estado == "Error") {
+                            $("#content").waitMe("hide");
+                            mostrarNotificacion("Error", data.mensaje);
+                            self.mostrarTabla(false);
+                        }
+                        else {
+
+                            self.ListaNegativas(data.resultado);
+
+                            if (data.totalRegistros == 0) {
+                                mostrarNotificacion("Información", "No existen registros.");
+                                self.mostrarTabla(false);
+                            } else {
+                                self.mostrarTabla(true);
+                            }
+
+                            $([document.documentElement, document.body]).animate({
+                                scrollTop: $("#scrollTabla").offset().top
+                            }, 1000);
+
+                            $("#content").waitMe("hide");
+                        }
+                    },
+                    error: function (data) {
+                        self.ListaNegativas([]);
+                        window.scrollTo(0, 0);
+                        self.mostrarTabla(false);
+                        $("#content").waitMe("hide");
+                        mostrarNotificacion("Error", "No fue posible consultar la información, intente nuevamente. Si el error persiste consulte al administrador del sistema.");
+                    }
+                });
+            };
+        };
+
+        ko.applyBindings(viewModel);
+
+    </script>
+}

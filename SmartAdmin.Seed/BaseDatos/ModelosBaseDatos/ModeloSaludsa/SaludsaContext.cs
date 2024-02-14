@@ -1407,10 +1407,15 @@ namespace  SmartAdmin.Seed.ModelsSaludsa
 
                 entity.Property(e => e.FechaConciliacion).HasColumnType("datetime");
 
+                entity.Property(e => e.FechaAnulacion).HasColumnType("datetime");
+
                 entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
 
                 entity.Property(e => e.Observacion)
                     .HasMaxLength(500)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ObservacionAnulacion)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.IdSolicitudNavigation)

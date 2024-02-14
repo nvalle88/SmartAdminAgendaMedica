@@ -103,27 +103,15 @@ namespace SistemasLegales.Controllers
                                 PhoneNumber = user.PhoneNumber,
                                 UserName = user.Email,
                                 Email = user.Email,
-                                EmailConfirmed = false,
+                                EmailConfirmed = true,
                                 Status = user.Status,
                             };
-                            var password = "AgendaMedicaSmart" + GenerateNumber.Generate().ToString();
-                            await _userManager.CreateAsync(RegistredUser, password);
+                            await _userManager.CreateAsync(RegistredUser, user.Email);
 
-                            Log.Logger.Info($"{User.Identity.Name}-{id} - Usuario creado - {RegistredUser.Serializar()}");
 
                             var userd = await _userManager.FindByEmailAsync(user.Email);
                             await _userManager.AddToRoleAsync(userd, user.IdRol);
-
-                            Log.Logger.Info($"{User.Identity.Name}-{id} - Adicionar Rol - {userd.Email} - {user.IdRol}");
-
-                            var listadoEmails = new List<string>();
-                            listadoEmails.Add(user.Email);
-                            var cuerpo = _emailSender.CuerpoCreateUser(Configuration.GetSection("CreateUsuarioCorreo").Value, string.Format("{0} {1}", userd.Name, userd.LastName),
-                                                                      userd.Email, password, Configuration.GetSection("EmailLink").Value);
-                             _emailSender.SendEmailAsync(listadoEmails, Mensaje.AsuntoCorreo, cuerpo);
-
-                            Log.Logger.Info($"{User.Identity.Name}-{id} - Envio Email - {cuerpo.Serializar()}");
-
+                            
                             return this.Redireccionar($"{Mensaje.MensajeSatisfactorio}|{Mensaje.Satisfactorio}");
                         }
                         else 
@@ -146,19 +134,11 @@ namespace SistemasLegales.Controllers
 
                             if (!await _userManager.IsInRoleAsync(CurrentUser, user.IdRol)) 
                             {
-                                Log.Logger.Info($"{User.Identity.Name}-{id} - Actualizar Rol");
-
                                 var RolsUser = _userManager.GetRolesAsync(CurrentUser).Result.FirstOrDefault();
-
                                 await _userManager.RemoveFromRoleAsync(CurrentUser, RolsUser);
-                                Log.Logger.Info($"{User.Identity.Name}-{id} - {user.Email} - RemoveFromRoleAsync - {CurrentUser.Email} - {RolsUser}");
                                 await _userManager.AddToRoleAsync(CurrentUser, user.IdRol);
-
-                                Log.Logger.Info($"{User.Identity.Name}-{id} - {user.Email} - AddToRoleAsync - {CurrentUser.Email} - {user.IdRol}");
                             }
                             await _userManager.UpdateAsync(CurrentUser);
-                            Log.Logger.Info($"{User.Identity.Name}-{id} - UpdateAsync - {CurrentUser.Serializar()}");
-
                             return this.Redireccionar($"{Mensaje.MensajeSatisfactorio}|{Mensaje.Satisfactorio}");
                         }
                         else
@@ -185,7 +165,7 @@ namespace SistemasLegales.Controllers
             catch (Exception ex)
             {
                 Log.Logger.Info($"{User.Identity.Name}-{id} - Exception - {ex.Serializar()}");
-                return this.Redireccionar($"{Mensaje.Error}|{Mensaje.Excepcion}");
+                return this.Redireccionar($"{Mensaje.Error}|{ex.Message}");
             }
         }
 

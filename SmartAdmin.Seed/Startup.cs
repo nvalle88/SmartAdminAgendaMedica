@@ -60,30 +60,12 @@ namespace SmartAdminSaludsa
             Log.Logger.Info($"{id} - AddDbContext - DefaultConnection");
 
 
-
-            Log.Logger.Info($"{id} - SQL - {Configuration.GetConnectionString("ConnectionBddPrestadores")}");
-
-            services.AddDbContext<PrestadoresContext>(options =>
-               options.UseSqlServer(Configuration.GetConnectionString("ConnectionBddPrestadores")));
-
-            Log.Logger.Info($"{id} - AddDbContext - ConnectionBddPrestadores");
-
-
-
             Log.Logger.Info($"{id} - SQL - {Configuration.GetConnectionString("ConnectionBddSaludsa")}");
 
             services.AddDbContext<SaludsaContext>(options =>
                options.UseSqlServer(Configuration.GetConnectionString("ConnectionBddSaludsa")));
 
             Log.Logger.Info($"{id} - AddDbContext - ConnectionBddSaludsa");
-
-            Log.Logger.Info($"{id} - SQL - {Configuration.GetConnectionString("ConnectionBddMessageBroker")}");
-
-            services.AddDbContext<bdd_MessageBrokerContext>(options =>
-               options.UseSqlServer(Configuration.GetConnectionString("ConnectionBddMessageBroker")));
-
-            Log.Logger.Info($"{id} - AddDbContext - ConnectionBddMessageBroker");
-
 
             Log.Logger.Info($"{id} - AddIdentity - Init");
 
@@ -94,24 +76,6 @@ namespace SmartAdminSaludsa
             Log.Logger.Info($"{id} - AddIdentity - Final");
 
             services.AddTransient<IEmailSender, AuthMessageSender>();
-
-
-            GenerateNumber.Lower = Convert.ToInt32(Configuration.GetSection("LowerRandom").Value);
-            GenerateNumber.Top = Convert.ToInt32(Configuration.GetSection("TopRandom").Value);
-
-
-            Mensaje.AsuntoCorreo = Configuration.GetSection("AsuntoCorreo").Value;
-
-            MailConfig.HostUri = Configuration.GetSection("Smtp").Value;
-            MailConfig.PrimaryPort = Convert.ToInt32(Configuration.GetSection("PrimaryPort").Value);
-            MailConfig.SecureSocketOptions = Convert.ToInt32(Configuration.GetSection("SecureSocketOptions").Value);
-            MailConfig.RequireAuthentication = Convert.ToBoolean(Configuration.GetSection("RequireAuthentication").Value);
-
-            MailConfig.UserName = Configuration.GetSection("UsuarioCorreo").Value;
-            MailConfig.Password = Configuration.GetSection("PasswordCorreo").Value;
-
-            MailConfig.EmailFrom = Configuration.GetSection("EmailFrom").Value;
-            MailConfig.NameFrom = Configuration.GetSection("NameFrom").Value;
 
 
             services.Configure<IdentityOptions>(options =>
@@ -153,76 +117,52 @@ namespace SmartAdminSaludsa
 
             Log.Logger.Info($"{id} - ConfigureApplicationCookie");
 
-            services.AddAuthorization(opts => {
+            services.AddAuthorization(opts =>
+            {
 
-                opts.AddPolicy("Administracion", policy => {
+                opts.AddPolicy("Administracion", policy =>
+                {
                     policy.RequireAuthenticatedUser();
                     policy.RequireRole("Administrador");
                 });
 
-                Log.Logger.Info($"{id} - AddPolicy[Administracion] - RequireRole - [Administrador]");
-
-                opts.AddPolicy("Gerencia", policy => {
+                opts.AddPolicy("AdministracionFarmacia", policy =>
+                {
                     policy.RequireAuthenticatedUser();
-                    policy.RequireRole("Gerencia", "Administrador");
+                    policy.RequireRole("AdministradorFarmacia", "Administrador");
                 });
 
-                Log.Logger.Info($"{id} - AddPolicy[Gerencia] - RequireRole[Gerencia,Administrador]");
-                 
-                opts.AddPolicy("Gestor", policy => {
+                opts.AddPolicy("AdministracionSaludsa", policy =>
+                {
                     policy.RequireAuthenticatedUser();
-                    policy.RequireRole("Gestor", "Gerencia", "Administrador");
+                    policy.RequireRole("AdministradorSaludsa", "Administrador");
                 });
 
-                Log.Logger.Info($"{id} - AddPolicy[Gestor] - RequireRole[Gestor,Gerencia,Administrador]");
-
-                opts.AddPolicy("Medicos", policy => {
+                opts.AddPolicy("GestionFarmacia", policy =>
+                {
                     policy.RequireAuthenticatedUser();
-                    policy.RequireRole("Medico", "Administrador");
-                });
-                Log.Logger.Info($"{id} - AddPolicy[Medico] - RequireRole[Medico,Administrador]");
-
-                opts.AddPolicy("Paciente", policy => {
-                    policy.RequireAuthenticatedUser();
-                    policy.RequireRole("Paciente", "Gestor");
+                    policy.RequireRole("AdministradorFarmacia", "GestorFarmacia", "Administrador");
                 });
 
-                Log.Logger.Info($"{id} - AddPolicy[Paciente] - RequireRole[Paciente,Gestor]");
+                opts.AddPolicy("GestionSaludsa", policy =>
+                {
+                    policy.RequireAuthenticatedUser();
+                    policy.RequireRole("AdministradorSaludsa", "GestorSaludsa", "Administrador");
+                });
+
             });
 
-
-            Log.Logger.Info($"{id} - services - AddAuthorization");
-
             services.AddMvc();
-
-            Log.Logger.Info($"{id} - services - AddMvc");
-
             services.AddMemoryCache();
-
-            Log.Logger.Info($"{id} - services - AddMemoryCache");
-
             services.AddSession();
-
-            Log.Logger.Info($"{id} - services - AddSession");
-
             services.AddDistributedMemoryCache();
-
-            Log.Logger.Info($"{id} - services - AddDistributedMemoryCache");
-
             services.AddResponseCaching();
-
-            Log.Logger.Info($"{id} - services - AddResponseCaching");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
 
-            var id = DateTime.Now.Ticks;
-            Log.Logger.Info($"{id} - Configure - Init");
-
-
-            Log.Logger.Info($"{id} - Configure - CultureInfo - Init");
             var defaultCulture = new CultureInfo("es-EC");
 
             defaultCulture.NumberFormat.NumberDecimalSeparator = ".";
@@ -232,12 +172,6 @@ namespace SmartAdminSaludsa
             var numberFormat = defaultCulture.NumberFormat.Serializar();
             var dateTimeFormat = defaultCulture.DateTimeFormat.Serializar();
 
-            Log.Logger.Info($"{id} - culture - {culture}");
-            Log.Logger.Info($"{id} - numberFormat - {numberFormat}");
-            Log.Logger.Info($"{id} - dateTimeFormat - {dateTimeFormat}");
-
-            Log.Logger.Info($"{id} - Configure - CultureInfo - fin");
-            //defaultCulture.DateTimeFormat = DateTimeFormatInfo.CurrentInfo;
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
                 DefaultRequestCulture = new RequestCulture(defaultCulture),
@@ -279,23 +213,22 @@ namespace SmartAdminSaludsa
 
             app.UseResponseCaching();
 
-            Log.Logger.Info($"{id} - Configure - Fin");
         }
 
 
         private void CreateRoles(IServiceProvider serviceProvider)
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            string[] rolesName = new string[] { Perfiles.Administrador, 
-                Perfiles.Genencia, 
-                Perfiles.Gestor, 
-                Perfiles.Medico, 
-                Perfiles.Paciente
+            string[] rolesName = new string[] { Perfiles.Administrador,
+                Perfiles.AdministradorFarmacia,
+                Perfiles.GestorFarmacia,
+                Perfiles.AdministradorSaludsa,
+                Perfiles.GestorSaludsa
             };
             IdentityResult result;
             foreach (var item in rolesName)
             {
-                 var roleExist = roleManager.RoleExistsAsync(item).Result;
+                var roleExist = roleManager.RoleExistsAsync(item).Result;
                 if (!roleExist)
                 {
                     //Se crean los roles si no existen en la BD
@@ -309,9 +242,7 @@ namespace SmartAdminSaludsa
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var usersName = new ApplicationUser[]
             {
-                new ApplicationUser { UserName = "yvalle@saludsa.com.ec", Email = "yvalle@saludsa.com.ec" },
                  new ApplicationUser { UserName = "administrador@saludsa.com.ec", Email = "administrador@saludsa.com.ec" },
-                //new ApplicationUser { UserName = "yvalle@saludsa.com.ec", Email = "yvalle@saludsa.com.ec" },
             };
             IdentityResult result;
             foreach (var item in usersName)
@@ -322,21 +253,19 @@ namespace SmartAdminSaludsa
                     //Se crean los usuarios si no existen en la BD
                     switch (item.UserName)
                     {
-                        case "yvalle@saludsa.com.ec": result = userManager.CreateAsync(item, "Administrador2018*").Result; break;
                         case "administrador@saludsa.com.ec": result = userManager.CreateAsync(item, "Administrador2018*").Result; break;
-                        //case "gestor@saludsa.com.ec": result = userManager.CreateAsync(item, "Gestor2021*").Result; break;
+                            //case "gestor@saludsa.com.ec": result = userManager.CreateAsync(item, "Gestor2021*").Result; break;
                     }
 
                     switch (item.UserName)
                     {
-                        case "yvalle@saludsa.com.ec": result = userManager.AddToRoleAsync(item, Perfiles.Administrador).Result; break;
                         case "administrador@saludsa.com.ec": result = userManager.AddToRoleAsync(item, Perfiles.Administrador).Result; break;
                             //case "gestor@bekaert.com": result = userManager.AddToRoleAsync(item, Perfiles.Gestor).Result; break;
                     }
                 }
 
                 //Se asignan los roles a los usuarios si no existen en la BD
-               
+
             }
         }
     }

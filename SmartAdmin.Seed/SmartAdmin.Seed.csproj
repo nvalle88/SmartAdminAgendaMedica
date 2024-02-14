@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <UserSecretsId>aspnet-SmartAdmin.Web-9FAA1EFF-D2A7-44DC-876C-B1467AF1E204</UserSecretsId>
+	  <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
     <MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
     <MvcRazorExcludeRefAssembliesFromPublish>false</MvcRazorExcludeRefAssembliesFromPublish>
     <TypeScriptToolsVersion>2.5</TypeScriptToolsVersion>
@@ -40,65 +41,6 @@
   <ItemGroup>
     <Folder Include="modeloSaldusaDb\" />
     <Folder Include="Models\ViewModels\Prestadores\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Views\AppViews\Blog.cshtml" />
-    <None Include="Views\AppViews\Gallery.cshtml" />
-    <None Include="Views\AppViews\Profile.cshtml" />
-    <None Include="Views\AppViews\Projects.cshtml" />
-    <None Include="Views\AppViews\TimeLine.cshtml" />
-    <None Include="Views\Commerce\Detail.cshtml" />
-    <None Include="Views\Commerce\Orders.cshtml" />
-    <None Include="Views\Commerce\ProductView.cshtml" />
-    <None Include="Views\Element\Buttons.cshtml" />
-    <None Include="Views\Element\General.cshtml" />
-    <None Include="Views\EmailTemplates\Basic.cshtml" />
-    <None Include="Views\EmailTemplates\Hero.cshtml" />
-    <None Include="Views\EmailTemplates\NewsLetter.cshtml" />
-    <None Include="Views\EmailTemplates\SideBar.cshtml" />
-    <None Include="Views\EmailTemplates\SideBarHero.cshtml" />
-    <None Include="Views\Features\Calendar.cshtml" />
-    <None Include="Views\Features\Googlemap.cshtml" />
-    <None Include="Views\Forms\Bootstrap.cshtml" />
-    <None Include="Views\Forms\Cropping.cshtml" />
-    <None Include="Views\Forms\Dropzone.cshtml" />
-    <None Include="Views\Forms\Editors.cshtml" />
-    <None Include="Views\Forms\Plugins.cshtml" />
-    <None Include="Views\Forms\SmartElements.cshtml" />
-    <None Include="Views\Forms\Templates.cshtml" />
-    <None Include="Views\Forms\Validation.cshtml" />
-    <None Include="Views\Forms\Validator.cshtml" />
-    <None Include="Views\Forms\Wizards.cshtml" />
-    <None Include="Views\Forum\GeneralView.cshtml" />
-    <None Include="Views\Forum\PostView.cshtml" />
-    <None Include="Views\Forum\TopicView.cshtml" />
-    <None Include="Views\Graphs\ChartJS.cshtml" />
-    <None Include="Views\Graphs\Dygraphs.cshtml" />
-    <None Include="Views\Graphs\Flot.cshtml" />
-    <None Include="Views\Graphs\HighCharts.cshtml" />
-    <None Include="Views\Graphs\Inline.cshtml" />
-    <None Include="Views\Graphs\Morris.cshtml" />
-    <None Include="Views\Icons\Flags.cshtml" />
-    <None Include="Views\Icons\FontAwesome.cshtml" />
-    <None Include="Views\Icons\GlyphIcons.cshtml" />
-    <None Include="Views\Icons\Grid.cshtml" />
-    <None Include="Views\Icons\JQueryUI.cshtml" />
-    <None Include="Views\Icons\NestedLists.cshtml" />
-    <None Include="Views\Icons\TreeView.cshtml" />
-    <None Include="Views\Icons\Typography.cshtml" />
-    <None Include="Views\Intel\AppLayout.cshtml" />
-    <None Include="Views\Intel\Settings.cshtml" />
-    <None Include="Views\Intel\Skins.cshtml" />
-    <None Include="Views\Misc\Blank.cshtml" />
-    <None Include="Views\Misc\CKEditor.cshtml" />
-    <None Include="Views\Misc\EmailTemplate.cshtml" />
-    <None Include="Views\Misc\Error404.cshtml" />
-    <None Include="Views\Misc\Error500.cshtml" />
-    <None Include="Views\Misc\Invoice.cshtml" />
-    <None Include="Views\Misc\Pricing.cshtml" />
-    <None Include="Views\Misc\Search.cshtml" />
-    <None Include="Views\Misc\Versions.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

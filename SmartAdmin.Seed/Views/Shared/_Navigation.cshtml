@@ -18,96 +18,6 @@
             @{
                 if (User.IsInRole(Perfiles.Administrador))
                 {
-
-                    <li is-active-route asp-controller="Prestadores">
-                        <a href="#" title="Prestadores">
-                            <i class="fa fa-lg fa-fw fa-address-book">
-                            </i> <span class="menu-item-parent">Prestadores</span>
-                        </a>
-                        <ul>
-                            <li is-active-route asp-controller="Prestadores" asp-action="ConvenioPlan">
-                                <a asp-controller="Prestadores" asp-action="ConvenioPlan" onclick="cargando()" title="Buscar beneficios">
-                                    <i class="fa fa-lg fa-fw fa-search"></i>
-                                    <span class="menu-item-parent">Buscar beneficios</span>
-                                </a>
-                            </li>
-                            <li is-active-route asp-controller="Home" asp-action="PedidosHistoricos">
-                                <a asp-controller="Home" onclick="cargando()" asp-action="PedidosHistoricos" title="Pedidos hist&#243ricos">
-                                    <i class="fa fa-solid fa-list-check"></i><span>Pedidos hist&#243ricos</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li is-active-route asp-controller="Configuraciones">
-                        <a href="#" title="Configuraci&oacute;n">
-                            <i class="fa fa-lg fa-fw fa-cog">
-                            </i> <span class="menu-item-parent">Configuraci&oacute;n</span>
-                        </a>
-                        <ul>
-                            <li is-active-route asp-controller="Configuraciones" asp-action="ListaParametros">
-                                <a asp-controller="Configuraciones" asp-action="ListaParametros" onclick="cargando()" title="Parámetros">
-                                    <i class="fa fa-lg fa-fw fa-circle-thin"></i>
-                                    <span class="menu-item-parent">Par&aacute;metros</span>
-                                </a>
-                            </li>
-                            <li is-active-route asp-controller="Configuraciones" asp-action="ListaCatalogos">
-                                <a asp-controller="Configuraciones" asp-action="ListaCatalogos" onclick="cargando()" title="Catálogos">
-                                    <i class="fa fa-lg fa-fw fa-circle-thin"></i>
-                                    <span class="menu-item-parent">Cat&aacute;logos</span>
-                                </a>
-                            </li>
-                            <li is-active-route asp-controller="Configuraciones" asp-action="General">
-                                <a asp-controller="Configuraciones" asp-action="General" onclick="cargando()" title="General">
-                                    <i class="fa fa-lg fa-fw fa-circle-thin"></i>
-                                    <span class="menu-item-parent">General</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li is-active-route asp-controller="ComoUsarPlan">
-                        <a href="#" title="Configuraci&oacute;n">
-                            <i class="fa fa-lg fa-folder-open">
-                            </i> <span class="menu-item-parent">&iquest;C&oacute;mo usar tu plan?</span>
-                        </a>
-                        <ul>
-                            <li is-active-route asp-controller="ComoUsarPlan" asp-action="ListaCanalOrigen">
-                                <a asp-controller="ComoUsarPlan" asp-action="ListaCanalOrigen" onclick="cargando()" title="Canales de &oacute;rigen">
-                                    <i class="fa fa-lg fa-fw fa-compass"></i>
-                                    <span class="menu-item-parent">Canales de &oacute;rigen</span>
-                                </a>
-                            </li>
-                            <li is-active-route asp-controller="ComoUsarPlan" asp-action="ListaProductoPlan">
-                                <a asp-controller="ComoUsarPlan" asp-action="ListaProductoPlan" onclick="cargando()" title="Productos y planes">
-                                    <i class="fa fa-lg fa-fw fa-bookmark"></i>
-                                    <span class="menu-item-parent">Productos y planes</span>
-                                </a>
-                            </li>
-                            <li is-active-route asp-controller="ComoUsarPlan" asp-action="ListaGuiaUso">
-                                <a asp-controller="ComoUsarPlan" asp-action="ListaGuiaUso" onclick="cargando()" title="Gu&iacute;as de uso">
-                                    <i class="fa fa-lg fa-fw fa-bars"></i>
-                                    <span class="menu-item-parent">Gu&iacute;as de uso</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-
-                    <li is-active-route asp-controller="MessageBrokers">
-                        <a href="#" title="Configuraci&oacute;n">
-                            <i class="fa fa-lg fa-fw fa-file-archive-o">
-                            </i> <span class="menu-item-parent">Message Brokers</span>
-                        </a>
-                        <ul>
-                            <li is-active-route asp-controller="MessageBrokers" asp-action="ListaSobres">
-                                <a asp-controller="MessageBrokers" asp-action="ListaSobres" onclick="cargando()" title="Sobres">
-                                    <i class="fa fa-lg fa-fw fa-circle-thin"></i>
-                                    <span class="menu-item-parent">Sobres</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
                     <li is-active-route asp-controller="Usuarios">
                         <a href="#" title="Configuraci&oacute;n">
                             <i class="fa fa-lg fa-fw fa-users">
@@ -122,46 +32,49 @@
                             </li>
                         </ul>
                     </li>
-                    @*<li is-active-route asp-controller="Home">
-                    <a href="#" title="Productos">
-                        <i class="fa fa-lg fa-fw fa-tags"></i> <span class="menu-item-parent">Productos</span>
-                    </a>
-
-                    <ul>
-                        <li is-active-route asp-controller="Home" asp-action="Productos">
-                            <a asp-controller="Home" onclick="cargando()" asp-action="Productos" title="Productos">
-                                <i class=""></i> <span>Productos</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li is-active-route asp-controller="Home">
-                    <a href="#" title="informaci&oacute;n">
-                        <i class="fa fa-lg fa-fw fa-bullhorn"></i> <span class="menu-item-parent">Anuncios</span>
-                    </a>
-                    <ul>
-                        <li is-active-route asp-controller="Home" asp-action="Anuncios">
-                            <a asp-controller="Home" onclick="cargando()" asp-action="Anuncios" title="Anuncios">
-                                <i class=""></i> <span>Anuncios</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li is-active-route asp-controller="Home">
-                    <a href="#" title="informaci&oacute;n">
-                        <i class="fa fa-lg fa-fw fa-line-chart"></i> <span class="menu-item-parent">Reportes</span>
-                    </a>
-                    <ul>
-                        <li is-active-route asp-controller="Home" asp-action="PanelInformacion">
-                            <a asp-controller="Home" onclick="cargando()" asp-action="PanelInformacion" title="Panel de informaci&oacute;n">
-                                <i class=""></i> <span>Panel de informaci&oacute;n</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>*@
                 }
+
+                if (User.IsInRole(Perfiles.GestorSaludsa) || User.IsInRole(Perfiles.Administrador))
+                {
+                    <li is-active-route asp-controller="CreditoFarmacia">
+                        <a href="#" title="Configuraci&oacute;n">
+                            <i class="fa fa-lg fa-fw fa-users">
+                            </i> <span class="menu-item-parent">Farmacia</span>
+                        </a>
+                        <ul>
+                            <li is-active-route asp-controller="CreditoFarmacia" asp-action="Negativas">
+                                <a asp-controller="CreditoFarmacia" asp-action="Negativas" onclick="cargando()" title="Negativas">
+                                    <i class="fa fa-lg fa-fw fa-user-circle"></i>
+                                    <span class="menu-item-parent">Negativas</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                }
+
+                if (User.IsInRole(Perfiles.AdministradorFarmacia) || User.IsInRole(Perfiles.Administrador)|| User.IsInRole(Perfiles.GestorFarmacia))
+                {
+
+                    <li is-active-route asp-controller="CreditoFarmacia">
+                        <a href="#" title="Prestadores">
+                            <i class="fa fa-lg fa-fw fa-address-book">
+                            </i> <span class="menu-item-parent">Prestadores</span>
+                        </a>
+                        <ul>
+                            <li is-active-route asp-controller="CreditoFarmacia" asp-action="Creditos">
+                                <a asp-controller="CreditoFarmacia" asp-action="Creditos" onclick="cargando()" title="Buscar">
+                                    <i class="fa fa-lg fa-fw fa-shopping-cart"></i>
+                                    <span class="menu-item-parent">Buscar cr&eacute;ditos</span>
+                                </a>
+                            </li>
+                           
+                    </li>
+                }
+               
             }
+            
         </ul>
+       
     </nav>
     <span class="minifyme" data-action="minifyMenu">
         <i class="fa fa-arrow-circle-left hit"></i>
