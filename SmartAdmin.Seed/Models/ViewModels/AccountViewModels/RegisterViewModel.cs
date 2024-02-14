@@ -41,5 +41,10 @@ namespace SistemaCalidad.Models
         public string IdRol { get; set; }
 
         public bool Status { get; set; }
+
+        public bool Externo { get; set; }
+
+        [Display(Name = "Númeor de convenio")]
+        public int NumeroConvenio { get; set; }
     }
 }

@@ -14,5 +14,8 @@ namespace SmartAdminSaludsa.Models
         public string Address { get; set; }
 
         public bool Status { get; set; }
+
+        public int? NumeroConvenio { get; set; }
+        public bool? Externo { get;  set; }
     }
 }

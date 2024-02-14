@@ -56,6 +56,15 @@
                             <span asp-validation-for="LastName" class="text-danger"></span>
                         </label>
                     </section>
+                     <section class="col col-sm-4">
+                       <label class="label">Convenio</label>
+                        <label class="input">
+                            <i class="icon-append fa fa-home"></i>
+                            <input type="number" asp-for="NumeroConvenio" placeholder="Número de convenio">
+                            <b class="tooltip tooltip-bottom-right">Ingrese el número de convenio</b>
+                            <span asp-validation-for="NumeroConvenio" class="text-danger"></span>
+                        </label>
+                    </section>
                     <section class="col col-sm-4">
                         <label class="label">Direcci&oacute;n</label>
                         <label class="input">
@@ -88,6 +97,18 @@
                         <span class="onoffswitch">
                             <input type="checkbox" checked="@Model.Status" asp-for="Status" class="onoffswitch-checkbox" id="st11(@Model.Status)">
                             <label class="onoffswitch-label" asp-for="Status" for="st11(@Model.Status)">
+                                <span class="onoffswitch-inner" data-swchon-text="Si" data-swchoff-text="No"></span>
+                                <span class="onoffswitch-switch">
+                                </span>
+                            </label>
+                        </span>
+                    </section>
+
+                    <section class="col col-lg-12">
+                        <i></i>&nbsp; ¿ Externo ?
+                        <span class="onoffswitch">
+                            <input type="checkbox" checked="@Model.Externo" asp-for="Externo" class="onoffswitch-checkbox" id="st11(@Model.Externo)">
+                            <label class="onoffswitch-label" asp-for="Externo" for="st11(@Model.Externo)">
                                 <span class="onoffswitch-inner" data-swchon-text="Si" data-swchoff-text="No"></span>
                                 <span class="onoffswitch-switch">
                                 </span>
