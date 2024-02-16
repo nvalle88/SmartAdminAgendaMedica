@@ -235,7 +235,6 @@
             var self = this;
 
             self.mostrarTabla = ko.observable(false);
-            self.mostrarTablaBeneficioPlan = ko.observable(false);
 
             self.filtro = {
                 cedulaCliente: ko.observable(""),
@@ -249,14 +248,12 @@
 
             self.listaCreditos = ko.observableArray([]);
 
-
-
             self.validarFormulariobuscarConvenioPlan = function () {
 
                 if (self.filtro.cedulaCliente() == "") {
                     mensaje = "El número de documento es obligatorio.";
-                    mostrarNotificacion("Aviso", mensaje);
                     $("#content").waitMe("hide");
+                    mostrarNotificacion("Aviso", mensaje);
                     return false;
                 }
                 return true;
@@ -269,7 +266,6 @@
             self.regrasarConvenioPlan = function () {
                 mostrarLoadingPanel("content", "");
                 self.mostrarTabla(true);
-                self.mostrarTablaBeneficioPlan(false);
                 $("#content").waitMe("hide");
             }
 
@@ -288,8 +284,8 @@
                         timeout: 500000,
                         success: function (data) {
                             if (data.estado == 'Error') {
-                                mostrarNotificacion("Error", data.mensaje);
                                 $("#content").waitMe("hide");
+                                mostrarNotificacion("Error", data.mensaje);
                             }
                             else {
                                 var listaAuxiliar = [];
@@ -310,8 +306,8 @@
                             }
                         },
                         error: function (data) {
-                            alert("El servicio no respondió en tiempo prudente, intente nuevamente por favor");
                             $("#content").waitMe("hide");
+                            alert("El servicio no respondió en tiempo prudente, intente nuevamente por favor");
                         }
                     });
                 }
@@ -320,7 +316,6 @@
 
             self.buscarCreditos = function (paginaActual) {
 
-                self.mostrarTablaBeneficioPlan(false);
                 mostrarLoadingPanel("content", "");
 
                 var validacion = self.validarFormulariobuscarConvenioPlan();
@@ -351,9 +346,11 @@
                             self.listaCreditos(data.resultado);
 
                             if (data.totalRegistros == 0) {
+                                $("#content").waitMe("hide");
                                 mostrarNotificacion("Información", "No existen registros.");
                                 self.mostrarTabla(false);
                             } else {
+                                $("#content").waitMe("hide");
                                 self.mostrarTabla(true);
                             }
 

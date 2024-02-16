@@ -63,10 +63,10 @@ namespace SistemasLegales.Controllers
                     if (user == null)
                         return this.Redireccionar($"{Mensaje.Error}|{Mensaje.RegistroNoEncontrado}");
 
-                    var rolName =  _userManager.GetRolesAsync(user).Result.FirstOrDefault();
-                    return View(new RegisterViewModel { Status = user.Status, IdRol = rolName, Id = user.Id, Address = user.Address, Email = user.Email, LastName = user.LastName, Name = user.Name, PhoneNumber = user.PhoneNumber });
+                    var rolName = _userManager.GetRolesAsync(user).Result.FirstOrDefault();
+                    return View(new RegisterViewModel { Status = user.Status, IdRol = rolName, Id = user.Id, Address = user.Address, Email = user.Email, LastName = user.LastName, Name = user.Name, PhoneNumber = user.PhoneNumber, Externo = user.Externo ?? false, NumeroConvenio = user.NumeroConvenio ?? 0 });
                 }
-                return View(new RegisterViewModel { Status = true, });
+                return View(new RegisterViewModel { Status = true, Externo = false, NumeroConvenio = 0 });
             }
             catch (Exception)
             {
@@ -90,7 +90,7 @@ namespace SistemasLegales.Controllers
                 {
                     var existeUsuario = false;
                     var CurrentUser = await _userManager.Users.Where(c => c.UserName.ToUpper().Trim() == user.Email.ToUpper().Trim()).FirstOrDefaultAsync();
-                    
+
                     if (string.IsNullOrEmpty(user.Id) == true)
                     {
                         if (CurrentUser == null)
@@ -105,23 +105,25 @@ namespace SistemasLegales.Controllers
                                 Email = user.Email,
                                 EmailConfirmed = true,
                                 Status = user.Status,
+                                Externo = user.Externo,
+                                NumeroConvenio = user.NumeroConvenio,
                             };
                             await _userManager.CreateAsync(RegistredUser, user.Email);
 
 
                             var userd = await _userManager.FindByEmailAsync(user.Email);
                             await _userManager.AddToRoleAsync(userd, user.IdRol);
-                            
+
                             return this.Redireccionar($"{Mensaje.MensajeSatisfactorio}|{Mensaje.Satisfactorio}");
                         }
-                        else 
+                        else
                         {
                             existeUsuario = true;
                         }
                     }
                     else
                     {
-                        if (CurrentUser.Id == user.Id )
+                        if (CurrentUser.Id == user.Id)
                         {
                             //var CurrentUser = await _userManager.FindByIdAsync(user.Id);
                             CurrentUser.LastName = user.LastName;
@@ -131,8 +133,10 @@ namespace SistemasLegales.Controllers
                             CurrentUser.UserName = user.Email;
                             CurrentUser.Email = user.Email;
                             CurrentUser.Status = user.Status;
+                            CurrentUser.Externo = user.Externo;
+                            CurrentUser.NumeroConvenio = user.NumeroConvenio;
 
-                            if (!await _userManager.IsInRoleAsync(CurrentUser, user.IdRol)) 
+                            if (!await _userManager.IsInRoleAsync(CurrentUser, user.IdRol))
                             {
                                 var RolsUser = _userManager.GetRolesAsync(CurrentUser).Result.FirstOrDefault();
                                 await _userManager.RemoveFromRoleAsync(CurrentUser, RolsUser);
@@ -194,7 +198,7 @@ namespace SistemasLegales.Controllers
                 {
 
                     Log.Logger.Info($"{User.Identity.Name}-{id} - Usuario eliminado - {usuarioEliminado.Serializar()}");
-                    this.TempData["Mensaje"] = $"{Mensaje.MensajeSatisfactorio}|  { Mensaje.Satisfactorio}";
+                    this.TempData["Mensaje"] = $"{Mensaje.MensajeSatisfactorio}|  {Mensaje.Satisfactorio}";
                     return Json(new
                     {
                         Estado = Constantes.EstadoOK,

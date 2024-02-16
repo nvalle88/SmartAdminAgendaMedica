@@ -1,6 +1,8 @@
 @using SmartAdmin.Seed.Configuration
 @using SmartAdmin.Seed.Extensions
+@using SmartAdminSaludsa.Models;
 @inject IOptions<SmartSettings> Settings
+@inject UserManager<ApplicationUser> _userManager
 <!-- HEADER -->
 <header id="header">
     <div id="logo-group">
@@ -8,29 +10,13 @@
         <span id="logo">
 
             <a href="/">
-                @if (User.IsInRole(Perfiles.Administrador))
-                {
-                    <b>&ensp;&ensp;Administrador</b>
-                }
 
-                @if (User.IsInRole(Perfiles.AdministradorFarmacia))
-                {
-                    <b>&ensp;&ensp;Administrador farmacia</b>
+                @{
+                    var usuario = await _userManager.GetUserAsync(User);
                 }
-
-                @if (User.IsInRole(Perfiles.GestorFarmacia))
+                @if (User.Identity.IsAuthenticated)
                 {
-                    <b>&ensp;&ensp;Gestor farmacia</b>
-                }
-
-                @if (User.IsInRole(Perfiles.AdministradorSaludsa))
-                {
-                    <b>&ensp;&ensp;Administrador Saldusa</b>
-                }
-
-                @if (User.IsInRole(Perfiles.GestorSaludsa))
-                {
-                    <b>&ensp;&ensp;Gestor Saludsa</b>
+                    <b style="color:white">&ensp;&ensp;@usuario.Name @usuario.LastName</b>
                 }
                 @*<img src="~/img/logo.png" alt="SmartAdmin">*@
             </a>

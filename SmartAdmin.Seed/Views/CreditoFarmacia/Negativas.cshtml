@@ -185,26 +185,6 @@
         </div>
     </div>
 
-    <div data-bind=" visible: mostrarTablaBeneficioPlan()">
-        <div class="row">
-            <div class="col-xs-12 col-sm-7 col-md-7 col-lg-9 margin-top-0">
-                <h1 class="page-title text-align-center txt-color-blueDark">
-                    <b>   &nbsp;</b>
-                </h1>
-            </div>
-            <div class="col-xs-12 col-sm-5 col-md-5 col-lg-3 margin-top-0">
-                <ul id="sparks">
-                    <li class="sparks-info">
-                        <button id="btn-guardar" class="btn btn-primary text-right"
-                                data-bind="click: regrasarConvenioPlan">
-                            <i class="fa fa-arrow-left"></i>
-                            &nbsp;&nbsp;Regresar
-                        </button>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
 </section>
 
 @section Scripts{
@@ -316,10 +296,8 @@
         function ViewModel() {
 
             var self = this;
-
             self.mostrarTabla = ko.observable(false);
-            self.mostrarTablaBeneficioPlan = ko.observable(false);
-
+            
             self.filtro = {
                 cedulaCliente: ko.observable(""),
             };
@@ -331,15 +309,13 @@
             };
 
             self.ListaNegativas = ko.observableArray([]);
-
-
-
+            
             self.validarFormulariobuscarConvenioPlan = function () {
 
                 if (self.filtro.cedulaCliente() == "") {
                     mensaje = "El número de documento es obligatorio.";
-                    mostrarNotificacion("Aviso", mensaje);
                     $("#content").waitMe("hide");
+                    mostrarNotificacion("Aviso", mensaje);
                     return false;
                 }
                 return true;
@@ -352,13 +328,12 @@
             self.regrasarConvenioPlan = function () {
                 mostrarLoadingPanel("content", "");
                 self.mostrarTabla(true);
-                self.mostrarTablaBeneficioPlan(false);
                 $("#content").waitMe("hide");
             }
 
             self.buscarNegativas = function (paginaActual) {
 
-                self.mostrarTablaBeneficioPlan(false);
+                self.mostrarTabla(false);
                 mostrarLoadingPanel("content", "");
 
                 var validacion = self.validarFormulariobuscarConvenioPlan();
@@ -389,9 +364,11 @@
                             self.ListaNegativas(data.resultado);
 
                             if (data.totalRegistros == 0) {
+                                $("#content").waitMe("hide");
                                 mostrarNotificacion("Información", "No existen registros.");
                                 self.mostrarTabla(false);
                             } else {
+                                $("#content").waitMe("hide");
                                 self.mostrarTabla(true);
                             }
 
